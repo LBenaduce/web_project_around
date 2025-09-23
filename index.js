@@ -14,19 +14,19 @@ import addIconSrc from './images/add.svg';
 import editIconSrc from './images/edit.svg';
 
 
-let userId; // Variável que armazenará o ID do usuário logadoconst modalProfile = new ModalProfile('#popup__profile-image'); // Seleção do modal de perfil
-const profileEditButton = document.querySelector(".profile__edit"); // Botão de editar o perfil
-const profileAddButton = document.querySelector(".profile__add"); // Botão de adicionar um novo cartão
+let userId; 
+const profileEditButton = document.querySelector(".profile__edit"); 
+const profileAddButton = document.querySelector(".profile__add"); 
 const modalProfile = new ModalProfile('#popup__profile-image');
-const popupProfileImage = document.querySelector(".profile__image-container");; // Seleciona o popup de edição da imagem do perfil
-const cardsContainerSelector = '.card__container'; // Seleciona o contêiner de cartões
+const popupProfileImage = document.querySelector(".profile__image-container");; 
+const cardsContainerSelector = '.card__container'; 
 const profileImage = document.querySelector('.profile__image');
 profileImage.src = profileImageSrc;
 
 const headerLogo = document.querySelector('.header__logo');
 headerLogo.src = logoSrc;
 
-// Define os ícones de edição e de adição no botão
+
 const profileEdit = document.querySelector('.profile__edit');
 profileEdit.style.backgroundImage = `url(${editIconSrc})`;
 
@@ -34,7 +34,7 @@ const profileAdd = document.querySelector('.profile__add');
 profileAdd.style.backgroundImage = `url(${addIconSrc})`;
 
 
-// Instância da API com a URL base e o cabeçalho de autorização
+
 const api = new Api({
     baseUrl: "https://around.nomoreparties.co/v1/web-ptbr-cohort-12",
     headers: {
@@ -42,20 +42,20 @@ const api = new Api({
         "Content-Type": "application/json"
     }
 });
-// Função para lidar com a curtida de um cartão
+
 function handleLikeClick(cardId, isLiked) {
     
     let apiCall;
 
-    // Verifica se o cartão já foi curtido e decide se deve curtir ou remover curtida
+  
     if (isLiked) {
-        apiCall = api.unlikeCard(cardId);  // Remove curtida
+        apiCall = api.unlikeCard(cardId);  
     } else {
-        apiCall = api.likeCard(cardId);    // Adiciona curtida
+        apiCall = api.likeCard(cardId);    
     }
     return apiCall;
   
-    // Atualiza o estado da curtida no cartão após a resposta da API
+   
     
 }
 

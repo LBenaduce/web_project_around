@@ -1,0 +1,279 @@
+@import url("../vendor/normalize.css");
+
+.page {
+  color: #ffffff;
+  background-color: #000000;
+  max-width: 1280px;
+  font-family: "Inter", sans-serif;
+  padding: 0 200px;
+}
+
+.header {
+  border: 1px solid #000000;
+  border-bottom: 1px solid #545454;
+}
+
+.header__logo {
+  margin: 45px 0;
+}
+
+.profile {
+  margin: 40px 0 50px;
+  display: flex;
+  align-items: center;
+}
+
+.profile__info {
+  margin-left: 30px;
+}
+
+.profile__name-container {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.profile__name {
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+  margin: 0;
+}
+
+.profile__job {
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0;
+  padding-top: 16px;
+}
+
+.profile__edit-button {
+  cursor: pointer;
+}
+
+.profile__edit-button:hover {
+  filter: brightness(0) invert(1);
+  opacity: 0.5;
+}
+
+.profile__add-button {
+  border: 2px solid #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+  padding: 14px 64px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.profile__add-button:hover {
+  border: 2px solid #ffffff60;
+}
+
+.profile__add-button:hover .profile__add-button-icon {
+  filter: brightness(0) invert(1);
+  opacity: 0.5;
+}
+
+.elements {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 17px;
+  row-gap: 20px;
+}
+
+.element {
+  display: flex;
+  flex-direction: column;
+  max-width: 415px; /* adicionei esse */
+  position: relative; /* adicionei esse */
+}
+
+.element__image {
+  width: 100%;
+}
+
+/* removi estilos comentados da classe abaixo */
+.element__description {
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  padding: 25px 21px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  /* text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; */
+}
+/* removi estilos comentados da classe acima */
+
+/* adicionei a classe abaixo */
+.element__title {
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* adicionei a classe acima */
+
+.element__title .element__icon:hover {
+  filter: brightness(0);
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.element__dark-icon {
+  display: none;
+}
+
+.popup {
+  background-color: #00000050;
+  position: absolute;
+  inset: 0;
+  display: none;
+  place-content: center;
+}
+
+.popup__opened {
+  display: grid;
+}
+
+.popup__container {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 36px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px 0px #00000026;
+  position: relative;
+}
+
+.popup__container__title {
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  margin-bottom: 54px;
+}
+
+.popup__container__fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.popup__container__input {
+  border: none;
+  border-bottom: 1px solid #00000020;
+}
+
+.popup__container__button {
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 22px;
+  margin-top: 48px;
+  cursor: pointer;
+  border: none;
+  padding: 18px 0;
+}
+
+.popup__container__button:hover {
+  background-color: #00000080;
+  border: none;
+}
+
+.popup__container__close-button {
+  background-color: #000000;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  border: none;
+  position: absolute;
+  top: -35px;
+  right: -35px;
+  cursor: pointer;
+}
+
+.popup__container__close-button:hover .popup__container__close-button-icon {
+  filter: brightness(0) invert(1);
+  opacity: 0.5;
+}
+
+.footer {
+  padding: 67px 0 60px;
+  color: #545454;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+@media screen and (max-width: 884px) {
+  .elements {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .page {
+    padding: 0 50px;
+  }
+}
+
+@media (max-width: 883px) and (min-width: 768px) {
+  .profile__name {
+    font-size: 35px;
+    line-height: 40px;
+  }
+}
+
+@media (max-width: 767px) and (min-width: 320px) {
+  .page {
+    padding: 0;
+  }
+
+  .header__logo {
+    padding-left: 27px;
+  }
+
+  .profile {
+    flex-direction: column;
+    align-items: center;
+    margin: 42px 19px 36px;
+  }
+
+  .profile__image {
+    max-width: 120px;
+  }
+
+  .profile__info {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+  }
+
+  .profile__name {
+    font-size: 22px;
+    line-height: 27px;
+  }
+
+  .profile__add-button {
+    margin-top: 36px;
+    width: 100%;
+  }
+
+  .elements {
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 19px;
+  }
+
+  .footer {
+    padding: 50px 19px 36px;
+  }
+}
