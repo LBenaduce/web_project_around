@@ -32,12 +32,29 @@
           <div class="profile__info">
             <div class="profile__name-container">
               <h2 class="profile__name">Jacques Cousteau</h2>
-              <img
-                src="./images/edit-sign.png"
-                alt="edit sign"
-                class="profile__edit-button"
-                id="edit-profile-button"
-              />
+              <div class="popup" id="edit-popup">
+  <div class="popup__container">
+    <button class="popup__close" type="button"></button>
+    <form class="popup__form">
+      <fieldset class="popup__fieldset">
+        <legend class="popup__title">Editar perfil</legend>
+        <input 
+          class="popup__input" 
+          type="text" 
+          name="name" 
+          placeholder="Nome"
+          id="profile-name-input">
+        <input 
+          class="popup__input" 
+          type="text" 
+          name="about" 
+          placeholder="Sobre mim"
+          id="profile-about-input">
+        <button class="popup__button" type="submit">Salvar</button>
+      </fieldset>
+    </form>
+  </div>
+</div>
             </div>
             <p class="profile__job">Explorador</p>
           </div>
