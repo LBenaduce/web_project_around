@@ -84,15 +84,14 @@
 .element {
   display: flex;
   flex-direction: column;
-  max-width: 415px; /* adicionei esse */
-  position: relative; /* adicionei esse */
+  max-width: 415px; 
+  position: relative; 
 }
 
 .element__image {
   width: 100%;
 }
 
-/* removi estilos comentados da classe abaixo */
 .element__description {
   background-color: #ffffff;
   color: #000000;
@@ -105,20 +104,14 @@
   align-items: center;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  /* text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden; */
 }
-/* removi estilos comentados da classe acima */
 
-/* adicionei a classe abaixo */
 .element__title {
   margin: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
-/* adicionei a classe acima */
 
 .element__title .element__icon:hover {
   filter: brightness(0);

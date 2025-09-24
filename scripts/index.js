@@ -187,25 +187,21 @@ const editProfilePopup = new PopupWithForm({
 profileEditButton.addEventListener('click', () => {
  
     const userInfoData = userInfo.getUserInfo(); // Obtém as informações do usuário
-    document.querySelector('#popup-profile-name').value = userInfoData.name; // Preenche o campo de nome no formulário
-    document.querySelector('#popup-profile-about').value = userInfoData.job; // Preenche o campo de ocupação no formulário
-    editProfilePopup.open(); // Abre o popup de edição de perfil
+    document.querySelector('#popup-profile-name').value = userInfoData.name; 
 });
 
 
-// Abre o modal de edição de imagem do perfil ao clicar na imagem
 popupProfileImage.addEventListener('click', () => {
     modalProfile.open();
 });
 
 
-// Abre o popup de adicionar cartão ao clicar no botão de adicionar
 profileAddButton.addEventListener('click', () => {
     addCardPopup.open();
 });
 
 
-// Configurações de validação dos formulários
+
 const validationSettings = {
     formSelector: ".popup__form",
     inputSelector: ".popup__edit-text",
@@ -215,8 +211,22 @@ const validationSettings = {
     errorClass: "popup__error_visible"
 };
 
-// Habilita a validação de todos os formulários na página
 document.querySelectorAll(validationSettings.formSelector).forEach((formElement) => {
     const formValidator = new FormValidator(validationSettings, formElement);
     formValidator.enableValidation();
 });
+
+const editButton = document.querySelector('#edit-profile-button');
+const popup = document.querySelector('.popup');
+const closeButton = document.querySelector('.popup__close');
+
+function openPopup() {
+  popup.classList.add('popup_opened');
+}
+
+function closePopup() {
+  popup.classList.remove('popup_opened');
+}
+
+editButton.addEventListener('click', openPopup);
+closeButton.addEventListener('click', closePopup);
