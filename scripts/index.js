@@ -11,19 +11,17 @@ import Api from './scripts/Api.js';
 import logoSrc from './images/logo.png';
 import profileImageSrc from './images/profile__image.jpg';
 import addIconSrc from './images/add.svg';
-import editIconSrc from './images/edit.svg';
 
 let userId;
 
 const profileImage = document.querySelector('.profile__image');
 const headerLogo = document.querySelector('.header__logo');
-const profileEditButton = document.querySelector('#edit-profile-button');
-const profileAddButton = document.querySelector('.profile__add');
-const popupProfileImage = document.querySelector('.profile__image-button'); 
+const profileEditButton = document.querySelector('.profile__edit-button');
+const profileAddButton = document.querySelector('.profile__add-button');
+const popupProfileImage = document.querySelector('.profile__image-button');
 
 profileImage.src = profileImageSrc;
 headerLogo.src = logoSrc;
-document.querySelector('.profile__edit').style.backgroundImage = `url(${editIconSrc})`;
 profileAddButton.style.backgroundImage = `url(${addIconSrc})`;
 
 const api = new Api({
@@ -75,7 +73,7 @@ const cardList = new Section({
     const cardElement = createCard(item);
     cardList.addItem(cardElement);
   }
-}, '.cards__list'); 
+}, '.cards__list');
 
 api.getInitialCards()
   .then((cards) => {
@@ -89,7 +87,7 @@ api.getInitialCards()
 
 const userInfo = new UserInfo({
   nameSelector: '.profile__name',
-  jobSelector: '.profile__about'
+  jobSelector: '.profile__job'
 });
 
 api.getUserInfo()
@@ -128,7 +126,7 @@ const addCardPopup = new PopupWithForm({
 addCardPopup.setEventListeners();
 
 const editProfilePopup = new PopupWithForm({
-  popupSelector: '#popup-profile',
+  popupSelector: '#edit-popup',
   handleFormSubmit: (data) => {
     api.updateUserInfo({
       name: data.name,
@@ -145,8 +143,8 @@ editProfilePopup.setEventListeners();
 
 profileEditButton.addEventListener('click', () => {
   const userInfoData = userInfo.getUserInfo();
-  document.querySelector('#popup-profile-name').value = userInfoData.name;
-  document.querySelector('#popup-profile-about').value = userInfoData.job;
+  document.querySelector('#profile-name-input').value = userInfoData.name;
+  document.querySelector('#profile-about-input').value = userInfoData.job;
   editProfilePopup.open();
 });
 
@@ -159,8 +157,8 @@ profileAddButton.addEventListener('click', () => {
 
 const validationSettings = {
   formSelector: ".popup__form",
-  inputSelector: ".popup__edit-text",
-  submitButtonSelector: ".popup__button-save",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
   inactiveButtonClass: "popup__button-disable",
   inputErrorClass: "popup__input-error",
   errorClass: "popup__error_visible"

@@ -191,7 +191,7 @@
   border: none;
 }
 
-.popup__close-button {
+.popup__close {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -200,14 +200,26 @@
   right: 15px;
   width: 40px;
   height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-.popup__close-button:hover .popup__close-button-icon {
-  filter: brightness(0) invert(1);
-  opacity: 0.5;
+.popup__close::before,
+.popup__close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 2px;
+  background: #000;
+  transform-origin: center;
+}
+
+.popup__close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.popup__close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .footer {
