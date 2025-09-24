@@ -6,9 +6,6 @@
     <meta name="description" content="Travel app" />
     <meta name="author" content="Luigi Benaduce" />
     <meta name="keywords" content="explorador, montanha" />
-    <script src="./scripts/index.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="./pages/index.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
@@ -61,12 +58,7 @@
               class="element__image"
             />
             <div class="element__description">
-              <p class="element__title">
-                Vale de Yosemite Lorem ipsum, dolor sit amet consectetur
-                adipisicing elit. Veniam praesentium doloribus voluptatem
-                officia hic laboriosam aut qui magni deleniti blanditiis eaque
-                quos libero mollitia et adipisci, odio iusto asperiores placeat?
-              </p>
+              <p class="element__title">Vale de Yosemite</p>
               <img
                 src="./images/like.png"
                 alt="heart icon"
@@ -106,7 +98,7 @@
               class="element__image"
             />
             <div class="element__description">
-              lorem ipsum
+              Lorem Ipsum
               <img
                 src="./images/like.png"
                 alt="heart icon"
@@ -184,21 +176,23 @@
         <div class="popup">
           <div class="popup__container">
             <button class="popup__close" type="button"></button>
-            <form class="popup__form">
+            <form class="popup__form" name="edit-profile-form">
               <fieldset class="popup__fieldset">
                 <legend class="popup__title">Editar perfil</legend>
-                <input 
-                  class="popup__input" 
-                  type="text" 
-                  name="name" 
+                <input
+                  class="popup__input"
+                  type="text"
+                  name="name"
                   placeholder="Nome"
-                  required>
-                <input 
-                  class="popup__input" 
-                  type="text" 
-                  name="about" 
+                  required
+                />
+                <input
+                  class="popup__input"
+                  type="text"
+                  name="about"
                   placeholder="Sobre mim"
-                  required>
+                  required
+                />
                 <button class="popup__button" type="submit">Salvar</button>
               </fieldset>
             </form>
@@ -206,9 +200,11 @@
         </div>
       </main>
 
-      <footer class="footer">&copy; 2025 Around The U.S. By Luigi Benaduce</footer>
+      <footer class="footer">
+        &copy; 2025 Around The U.S. By Luigi Benaduce
+      </footer>
     </div>
 
-    <script src="./scripts/b.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>

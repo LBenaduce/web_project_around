@@ -15,12 +15,14 @@ import editIconSrc from './images/edit.svg';
 
 
 let userId; 
-const profileEditButton = document.querySelector(".profile__edit"); 
-const profileAddButton = document.querySelector(".profile__add"); 
-const modalProfile = new ModalProfile('#popup__profile-image');
-const popupProfileImage = document.querySelector(".profile__image-container");; 
-const cardsContainerSelector = '.card__container'; 
-const profileImage = document.querySelector('.profile__image');
+const editButton = document.querySelector('#edit-profile-button'); 
+const popup = document.querySelector('.popup'); 
+const closeButton = document.querySelector('.popup__close'); 
+const form = document.forms['edit-profile-form']; 
+const nameInput = form.elements.name;
+const aboutInput = form.elements.about;
+const profileName = document.querySelector('.profile__name');
+const profileJob = document.querySelector('.profile__job');
 profileImage.src = profileImageSrc;
 
 const headerLogo = document.querySelector('.header__logo');
@@ -168,7 +170,7 @@ const addCardPopup = new PopupWithForm({
     }
 });
 
-addCardPopup.setEventListeners(); // Adiciona os eventos de escuta para o popup de adicionar cartão
+addCardPopup.setEventListeners(); 
 
 const editProfilePopup = new PopupWithForm({
     popupSelector: '#popup-profile',
@@ -183,10 +185,9 @@ const editProfilePopup = new PopupWithForm({
         });
     }
 })
-// Adiciona o comportamento ao botão de editar o perfil
 profileEditButton.addEventListener('click', () => {
  
-    const userInfoData = userInfo.getUserInfo(); // Obtém as informações do usuário
+    const userInfoData = userInfo.getUserInfo(); 
     document.querySelector('#popup-profile-name').value = userInfoData.name; 
 });
 
