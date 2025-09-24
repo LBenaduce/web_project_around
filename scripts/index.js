@@ -1,16 +1,16 @@
-import './page/index.css';
-import { Card } from './scripts/Card.js';
-import { FormValidator } from './scripts/FormValidator.js';
-import { Section } from './scripts/Section.js';
-import PopupWithImage from './scripts/PopupWithImage.js';
-import PopupWithForm from './scripts/PopupWithForm.js';
-import PopupWithConfirmation from './scripts/PopupWithConfirmation.js';
-import { UserInfo } from './scripts/UserInfo.js';
-import ModalProfile from './scripts/ModalProfile.js';
-import Api from './scripts/Api.js';
-import logoSrc from './images/logo.png';
-import profileImageSrc from './images/profile__image.jpg';
-import addIconSrc from './images/add.svg';
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+import { Section } from './Section.js';
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import PopupWithConfirmation from './PopupWithConfirmation.js';
+import { UserInfo } from './UserInfo.js';
+import ModalProfile from './ModalProfile.js';
+import Api from './Api.js';
+import logoSrc from '../images/logo.png';
+import profileImageSrc from '../images/profile__image.jpg';
+import addIconSrc from '../images/add.svg';
+import editIconSrc from '../images/edit.svg';
 
 let userId;
 
@@ -23,6 +23,7 @@ const popupProfileImage = document.querySelector('.profile__image-button');
 profileImage.src = profileImageSrc;
 headerLogo.src = logoSrc;
 profileAddButton.style.backgroundImage = `url(${addIconSrc})`;
+profileEditButton.style.backgroundImage = `url(${editIconSrc})`;
 
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/web-ptbr-cohort-12",
