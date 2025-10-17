@@ -13,4 +13,4 @@ Git e Github;
 Projeto
 No projeto dessa sprint 7 foi proposto o pojeto de criar uma página web onde é possivel exibir alguns posts, alterar nome e status do perfil.
 
-Desenvolvido por: Luigi Benaduce
+Desenvolvido por: Luigi Benaduce (Luiz Cabral Benaduce Gonçalves).
