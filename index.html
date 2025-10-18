@@ -7,29 +7,18 @@
     <meta name="author" content="Luigi Benaduce" />
     <meta name="keywords" content="explorador, montanha" />
     <link rel="stylesheet" href="./pages/index.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
     <title>Around The U.S.</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img
-          src="./images/around-the-us.png"
-          alt="Logo Around The U.S."
-          class="header__logo"
-        />
+        <img src="./images/around-the-us.png" alt="Logo Around The U.S." class="header__logo" />
       </header>
 
       <main class="content">
         <section class="profile">
-          <img
-            src="./images/avatar.png"
-            alt="foto de um homem idoso"
-            class="profile__image"
-          />
+          <img src="./images/avatar.png" alt="foto de um homem idoso" class="profile__image" />
           <div class="profile__info">
             <div class="profile__name-container">
               <h2 class="profile__name">Jacques Cousteau</h2>
@@ -40,33 +29,19 @@
             <p class="profile__job">Explorador</p>
           </div>
           <button type="button" class="profile__add-button">
-            <img
-              src="./images/plus-sign.png"
-              alt="Adicionar novo item"
-              class="profile__add-button-icon"
-            />
+            <img src="./images/plus-sign.png" alt="Adicionar novo item" class="profile__add-button-icon" />
           </button>
         </section>
 
         <section class="elements" aria-label="Galeria">
           <ul class="elements__list"></ul>
-
           <template id="card-template">
             <li class="card">
-              <button
-                class="card__delete-btn"
-                type="button"
-                aria-label="Excluir"
-              ></button>
+              <button class="card__delete-btn" type="button" aria-label="Excluir"></button>
               <img class="card__image" src="" alt="" />
               <div class="card__caption">
                 <h2 class="card__title"></h2>
-                <button
-                  class="card__like-btn"
-                  type="button"
-                  aria-pressed="false"
-                  aria-label="Curtir"
-                ></button>
+                <button class="card__like-btn" type="button" aria-pressed="false" aria-label="Curtir"></button>
               </div>
             </li>
           </template>
@@ -78,20 +53,8 @@
             <form class="popup__form" name="edit-profile-form">
               <fieldset class="popup__fieldset">
                 <legend class="popup__title">Editar perfil</legend>
-                <input
-                  class="popup__input"
-                  type="text"
-                  name="name"
-                  placeholder="Nome"
-                  required
-                />
-                <input
-                  class="popup__input"
-                  type="text"
-                  name="about"
-                  placeholder="Sobre mim"
-                  required
-                />
+                <input class="popup__input" type="text" name="name" placeholder="Nome" required />
+                <input class="popup__input" type="text" name="about" placeholder="Sobre mim" required />
                 <button class="popup__button" type="submit">Salvar</button>
               </fieldset>
             </form>
@@ -104,22 +67,8 @@
             <form class="popup__form" name="add-card-form">
               <fieldset class="popup__fieldset">
                 <legend class="popup__title">Novo local</legend>
-                <input
-                  class="popup__input"
-                  type="text"
-                  name="title"
-                  placeholder="Título"
-                  required
-                  minlength="2"
-                  maxlength="30"
-                />
-                <input
-                  class="popup__input"
-                  type="url"
-                  name="link"
-                  placeholder="Link da imagem"
-                  required
-                />
+                <input class="popup__input" type="text" name="title" placeholder="Título" required minlength="2" maxlength="30" />
+                <input class="popup__input" type="url" name="link" placeholder="Link da imagem" required />
                 <button class="popup__button" type="submit">Criar</button>
               </fieldset>
             </form>
