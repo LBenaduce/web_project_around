@@ -131,3 +131,7 @@
   color: #fff;
   text-align: center;
 }
+
+.popup { opacity: 0; visibility: hidden; }
+.popup_opened { opacity: 1; visibility: visible; }
+
