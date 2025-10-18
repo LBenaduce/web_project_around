@@ -1,32 +1,26 @@
-.page {
-  color: #ffffff;
-  background-color: #000000;
-  max-width: 1280px;
-  font-family: "Inter", sans-serif;
-  padding: 0 200px;
-  margin: 0 auto;
-}
-
-@media screen and (max-width: 884px) {
-  .page {
-    padding: 0 50px;
-  }
-}
-
-@media (max-width: 767px) and (min-width: 320px) {
-  .page {
-    padding: 0;
-  }
-}
-
-body {
+html, body {
+  height: 100%;
   margin: 0;
-    background-color: #000; 
+  background: #000;
+  color: #fff;
 }
 
 .page {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1280px;
-  background-color: #000;
+  font-family: "Inter", Arial, sans-serif;
+  min-height: 100%;
+  background: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer {
+  flex-shrink: 0;
 }

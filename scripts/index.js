@@ -1,19 +1,62 @@
 const profileEditButton = document.querySelector('.profile__edit-button');
+const profileAddButton = document.querySelector('.profile__add-button');
 const editPopup = document.getElementById('edit-popup');
-const closeButton = editPopup.querySelector('.popup__close');
+const addPopup = document.getElementById('add-popup');
+const imagePopup = document.getElementById('image-popup');
+const closeButtons = document.querySelectorAll('.popup__close');
+
 const nameInput = editPopup.querySelector('input[name="name"]');
 const aboutInput = editPopup.querySelector('input[name="about"]');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
-const form = editPopup.querySelector('.popup__form');
+const editForm = editPopup.querySelector('.popup__form');
+
+const addForm = addPopup.querySelector('.popup__form');
+const titleInput = addForm.querySelector('input[name="title"]');
+const linkInput = addForm.querySelector('input[name="link"]');
+
+const imagePopupImg = imagePopup.querySelector('.popup__image');
+const imagePopupCaption = imagePopup.querySelector('.popup__caption');
+
+const cardsList = document.querySelector('.elements__list');
+const cardTemplate = document.querySelector('#card-template').content;
+
+const initialCards = [
+  { name: "Vale de Yosemite", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg" },
+  { name: "Lago Louise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg" },
+  { name: "Montanhas Carecas", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg" },
+  { name: "Latemar", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg" },
+  { name: "Parque Nacional da Vanoise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg" },
+  { name: "Lago di Braies", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg" }
+];
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', handleEscClose);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', handleEscClose);
 }
+
+function handleEscClose(e) {
+  if (e.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    if (openedPopup) closePopup(openedPopup);
+  }
+}
+
+closeButtons.forEach((btn) => {
+  const popup = btn.closest('.popup');
+  btn.addEventListener('click', () => closePopup(popup));
+});
+
+document.querySelectorAll('.popup').forEach((popup) => {
+  popup.addEventListener('mousedown', (e) => {
+    if (e.target === popup) closePopup(popup);
+  });
+});
 
 function openEditProfilePopup() {
   nameInput.value = profileName.textContent;
@@ -29,55 +72,55 @@ function handleProfileSubmit(e) {
 }
 
 profileEditButton.addEventListener('click', openEditProfilePopup);
-closeButton.addEventListener('click', () => closePopup(editPopup));
-form.addEventListener('submit', handleProfileSubmit);
+editForm.addEventListener('submit', handleProfileSubmit);
 
-editPopup.addEventListener('mousedown', (e) => {
-  if (e.target === editPopup) closePopup(editPopup);
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closePopup(editPopup);
-});
-
-const initialCards = [
-  { name: "Vale de Yosemite", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg" },
-  { name: "Lago Louise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg" },
-  { name: "Montanhas Carecas", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg" },
-  { name: "Latemar", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg" },
-  { name: "Parque Nacional da Vanoise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg" },
-  { name: "Lago di Braies", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg" }
-];
-
-const cardsList = document.querySelector(".elements__list");
-const cardTemplate = document.querySelector("#card-template").content;
+profileAddButton.addEventListener('click', () => openPopup(addPopup));
 
 function createCard({ name, link }) {
-  const cardEl = cardTemplate.querySelector(".card").cloneNode(true);
-  const img = cardEl.querySelector(".card__image");
-  const titleEl = cardEl.querySelector(".card__title");
-  const likeBtn = cardEl.querySelector(".card__like-btn");
-  const deleteBtn = cardEl.querySelector(".card__delete-btn");
-  titleEl.textContent = name;
-  img.src = link;
-  img.alt = name || "Imagem do cartão";
-  likeBtn.addEventListener("click", (evt) => {
-    evt.currentTarget.classList.toggle("card__like-btn_active");
-    const pressed = evt.currentTarget.getAttribute("aria-pressed") === "true";
-    evt.currentTarget.setAttribute("aria-pressed", String(!pressed));
+  const card = cardTemplate.querySelector('.card').cloneNode(true);
+  const cardImage = card.querySelector('.card__image');
+  const cardTitle = card.querySelector('.card__title');
+  const likeButton = card.querySelector('.card__like-btn');
+  const deleteButton = card.querySelector('.card__delete-btn');
+
+  cardTitle.textContent = name;
+  cardImage.src = link;
+  cardImage.alt = name;
+
+  likeButton.addEventListener('click', () => {
+    likeButton.classList.toggle('card__like-btn_active');
   });
-  deleteBtn.addEventListener("click", () => {
-    cardEl.remove();
+
+  deleteButton.addEventListener('click', () => {
+    card.remove();
   });
-  return cardEl;
+
+  cardImage.addEventListener('click', () => {
+    imagePopupImg.src = link;
+    imagePopupImg.alt = name;
+    imagePopupCaption.textContent = name;
+    openPopup(imagePopup);
+  });
+
+  return card;
 }
 
 function renderInitialCards(cards) {
   const fragment = document.createDocumentFragment();
-  cards.forEach((card) => fragment.appendChild(createCard(card)));
+  cards.forEach((cardData) => {
+    fragment.appendChild(createCard(cardData));
+  });
   cardsList.appendChild(fragment);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderInitialCards(initialCards);
-});
+function handleAddCardSubmit(e) {
+  e.preventDefault();
+  const newCard = createCard({ name: titleInput.value, link: linkInput.value });
+  cardsList.prepend(newCard);
+  addForm.reset();
+  closePopup(addPopup);
+}
+
+addForm.addEventListener('submit', handleAddCardSubmit);
+
+document.addEventListener('DOMContentLoaded', () => renderInitialCards(initialCards));

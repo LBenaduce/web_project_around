@@ -48,135 +48,67 @@
           </button>
         </section>
 
-        <section class="elements">
-          <div class="element">
-            <img
-              src="./images/yosemite.png"
-              alt="rio entre árvores"
-              class="element__image"
-            />
-            <div class="element__description">
-              <p class="element__title">Vale de Yosemite</p>
-              <img
-                src="./images/like.png"
-                alt="ícone de coração"
-                class="element__icon"
-              />
-              <img
-                src="./images/lilke-black.svg"
-                alt="ícone de coração escuro"
-                class="element__dark-icon"
-              />
-            </div>
-          </div>
+        <section class="elements" aria-label="Galeria">
+          <ul class="elements__list"></ul>
 
-          <div class="element">
-            <img
-              src="./images/louise.png"
-              alt="lago entre montanhas"
-              class="element__image"
-            />
-            <div class="element__description">
-              <p class="element__title">Lago Louise</p>
-              <img
-                src="./images/like.png"
-                alt="ícone de coração"
-                class="element__icon"
-              />
-              <img
-                src="./images/lilke-black.svg"
-                alt="ícone de coração escuro"
-                class="element__dark-icon"
-              />
-            </div>
-          </div>
-
-          <div class="element">
-            <img
-              src="./images/montanhas.png"
-              alt="nascer do sol nas montanhas"
-              class="element__image"
-            />
-            <div class="element__description">
-              <p class="element__title">Lorem Ipsum</p>
-              <img
-                src="./images/like.png"
-                alt="ícone de coração"
-                class="element__icon"
-              />
-              <img
-                src="./images/lake-dibraies-card.png"
-                alt="ícone de coração escuro"
-                class="element__dark-icon"
-              />
-            </div>
-          </div>
-
-          <div class="element">
-            <img
-              src="./images/latemar.png"
-              alt="montanhas à noite"
-              class="element__image"
-            />
-            <div class="element__description">
-              <p class="element__title">Latemar</p>
-              <img
-                src="./images/like.png"
-                alt="ícone de coração"
-                class="element__icon"
-              />
-              <img
-                src="./images/like-dark.png"
-                alt="ícone de coração escuro"
-                class="element__dark-icon"
-              />
-            </div>
-          </div>
-
-          <div class="element">
-            <img
-              src="./images/vanoise.png"
-              alt="lago calmo e montanha"
-              class="element__image"
-            />
-            <div class="element__description">
-              <p class="element__title">Vanoise National</p>
-              <img
-                src="./images/like.png"
-                alt="ícone de coração"
-                class="element__icon"
-              />
-              <img
-                src="./images/like-dark.png"
-                alt="ícone de coração escuro"
-                class="element__dark-icon"
-              />
-            </div>
-          </div>
-
-          <div class="element">
-            <img
-              src="./images/braies.png"
-              alt="pier em um lago com montanha"
-              class="element__image"
-            />
-            <div class="element__description">
-              <p class="element__title">Lago di Braies</p>
-              <img
-                src="./images/like.png"
-                alt="ícone de coração"
-                class="element__icon"
-              />
-              <img
-                src="./images/like-dark.png"
-                alt="ícone de coração escuro"
-                class="element__dark-icon"
-              />
-            </div>
-          </div>
+          <template id="card-template">
+            <li class="card">
+              <button
+                class="card__delete-btn"
+                type="button"
+                aria-label="Excluir"
+              ></button>
+              <img class="card__image" src="" alt="" />
+              <div class="card__caption">
+                <h2 class="card__title"></h2>
+                <button
+                  class="card__like-btn"
+                  type="button"
+                  aria-pressed="false"
+                  aria-label="Curtir"
+                ></button>
+              </div>
+            </li>
+          </template>
         </section>
 
         <div class="popup" id="edit-popup">
+          <div class="popup" id="add-popup">
+  <div class="popup__container">
+    <button class="popup__close" type="button"></button>
+    <form class="popup__form" name="add-card-form">
+      <fieldset class="popup__fieldset">
+        <legend class="popup__title">Novo local</legend>
+        <input
+          class="popup__input"
+          type="text"
+          name="title"
+          placeholder="Título"
+          required
+          minlength="2"
+          maxlength="30"
+        />
+        <input
+          class="popup__input"
+          type="url"
+          name="link"
+          placeholder="Link da imagem"
+          required
+        />
+        <button class="popup__button" type="submit">Criar</button>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<div class="popup" id="image-popup">
+  <div class="popup__container popup__container_type_image">
+    <button class="popup__close" type="button"></button>
+    <img class="popup__image" src="" alt="" />
+    <p class="popup__caption"></p>
+  </div>
+</div>
+
           <div class="popup__container">
             <button class="popup__close" type="button"></button>
             <form class="popup__form" name="edit-profile-form">
