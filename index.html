@@ -1,126 +1,144 @@
-const profileEditButton = document.querySelector('.profile__edit-button');
-const profileAddButton = document.querySelector('.profile__add-button');
-const editPopup = document.getElementById('edit-popup');
-const addPopup = document.getElementById('add-popup');
-const imagePopup = document.getElementById('image-popup');
-const closeButtons = document.querySelectorAll('.popup__close');
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Travel app" />
+    <meta name="author" content="Luigi Benaduce" />
+    <meta name="keywords" content="explorador, montanha" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Around The U.S.</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <img
+          src="./images/around-the-us.png"
+          alt="Logo Around The U.S."
+          class="header__logo"
+        />
+      </header>
 
-const nameInput = editPopup.querySelector('input[name="name"]');
-const aboutInput = editPopup.querySelector('input[name="about"]');
-const profileName = document.querySelector('.profile__name');
-const profileJob = document.querySelector('.profile__job');
-const editForm = editPopup.querySelector('.popup__form');
+      <main class="content">
+        <section class="profile">
+          <img
+            src="./images/avatar.png"
+            alt="foto de um homem idoso"
+            class="profile__image"
+          />
+          <div class="profile__info">
+            <div class="profile__name-container">
+              <h2 class="profile__name">Jacques Cousteau</h2>
+              <button type="button" class="profile__edit-button">
+                <img src="./images/edit-sign.png" alt="Editar perfil" />
+              </button>
+            </div>
+            <p class="profile__job">Explorador</p>
+          </div>
+          <button type="button" class="profile__add-button">
+            <img
+              src="./images/plus-sign.png"
+              alt="Adicionar novo item"
+              class="profile__add-button-icon"
+            />
+          </button>
+        </section>
 
-const addForm = addPopup.querySelector('.popup__form');
-const titleInput = addForm.querySelector('input[name="title"]');
-const linkInput = addForm.querySelector('input[name="link"]');
+        <section class="elements" aria-label="Galeria">
+          <ul class="elements__list"></ul>
 
-const imagePopupImg = imagePopup.querySelector('.popup__image');
-const imagePopupCaption = imagePopup.querySelector('.popup__caption');
+          <template id="card-template">
+            <li class="card">
+              <button
+                class="card__delete-btn"
+                type="button"
+                aria-label="Excluir"
+              ></button>
+              <img class="card__image" src="" alt="" />
+              <div class="card__caption">
+                <h2 class="card__title"></h2>
+                <button
+                  class="card__like-btn"
+                  type="button"
+                  aria-pressed="false"
+                  aria-label="Curtir"
+                ></button>
+              </div>
+            </li>
+          </template>
+        </section>
 
-const cardsList = document.querySelector('.elements__list');
-const cardTemplate = document.querySelector('#card-template').content;
+        <div class="popup" id="edit-popup">
+          <div class="popup__container">
+            <button class="popup__close" type="button"></button>
+            <form class="popup__form" name="edit-profile-form">
+              <fieldset class="popup__fieldset">
+                <legend class="popup__title">Editar perfil</legend>
+                <input
+                  class="popup__input"
+                  type="text"
+                  name="name"
+                  placeholder="Nome"
+                  required
+                />
+                <input
+                  class="popup__input"
+                  type="text"
+                  name="about"
+                  placeholder="Sobre mim"
+                  required
+                />
+                <button class="popup__button" type="submit">Salvar</button>
+              </fieldset>
+            </form>
+          </div>
+        </div>
 
-const initialCards = [
-  { name: "Vale de Yosemite", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg" },
-  { name: "Lago Louise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg" },
-  { name: "Montanhas Carecas", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg" },
-  { name: "Latemar", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg" },
-  { name: "Parque Nacional da Vanoise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg" },
-  { name: "Lago di Braies", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg" }
-];
+        <div class="popup" id="add-popup">
+          <div class="popup__container">
+            <button class="popup__close" type="button"></button>
+            <form class="popup__form" name="add-card-form">
+              <fieldset class="popup__fieldset">
+                <legend class="popup__title">Novo local</legend>
+                <input
+                  class="popup__input"
+                  type="text"
+                  name="title"
+                  placeholder="Título"
+                  required
+                  minlength="2"
+                  maxlength="30"
+                />
+                <input
+                  class="popup__input"
+                  type="url"
+                  name="link"
+                  placeholder="Link da imagem"
+                  required
+                />
+                <button class="popup__button" type="submit">Criar</button>
+              </fieldset>
+            </form>
+          </div>
+        </div>
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', handleEscClose);
-}
+        <div class="popup" id="image-popup">
+          <div class="popup__container popup__container_type_image">
+            <button class="popup__close" type="button"></button>
+            <img class="popup__image" src="" alt="" />
+            <p class="popup__caption"></p>
+          </div>
+        </div>
+      </main>
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', handleEscClose);
-}
-
-function handleEscClose(e) {
-  if (e.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    if (openedPopup) closePopup(openedPopup);
-  }
-}
-
-closeButtons.forEach((btn) => {
-  const popup = btn.closest('.popup');
-  btn.addEventListener('click', () => closePopup(popup));
-});
-
-document.querySelectorAll('.popup').forEach((popup) => {
-  popup.addEventListener('mousedown', (e) => {
-    if (e.target === popup) closePopup(popup);
-  });
-});
-
-function openEditProfilePopup() {
-  nameInput.value = profileName.textContent;
-  aboutInput.value = profileJob.textContent;
-  openPopup(editPopup);
-}
-
-function handleProfileSubmit(e) {
-  e.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = aboutInput.value;
-  closePopup(editPopup);
-}
-
-profileEditButton.addEventListener('click', openEditProfilePopup);
-editForm.addEventListener('submit', handleProfileSubmit);
-
-profileAddButton.addEventListener('click', () => openPopup(addPopup));
-
-function createCard({ name, link }) {
-  const card = cardTemplate.querySelector('.card').cloneNode(true);
-  const cardImage = card.querySelector('.card__image');
-  const cardTitle = card.querySelector('.card__title');
-  const likeButton = card.querySelector('.card__like-btn');
-  const deleteButton = card.querySelector('.card__delete-btn');
-
-  cardTitle.textContent = name;
-  cardImage.src = link;
-  cardImage.alt = name;
-
-  likeButton.addEventListener('click', () => {
-    likeButton.classList.toggle('card__like-btn_active');
-  });
-
-  deleteButton.addEventListener('click', () => {
-    card.remove();
-  });
-
-  cardImage.addEventListener('click', () => {
-    imagePopupImg.src = link;
-    imagePopupImg.alt = name;
-    imagePopupCaption.textContent = name;
-    openPopup(imagePopup);
-  });
-
-  return card;
-}
-
-function renderInitialCards(cards) {
-  const fragment = document.createDocumentFragment();
-  cards.forEach((cardData) => {
-    fragment.appendChild(createCard(cardData));
-  });
-  cardsList.appendChild(fragment);
-}
-
-function handleAddCardSubmit(e) {
-  e.preventDefault();
-  const newCard = createCard({ name: titleInput.value, link: linkInput.value });
-  cardsList.prepend(newCard);
-  addForm.reset();
-  closePopup(addPopup);
-}
-
-addForm.addEventListener('submit', handleAddCardSubmit);
-
-document.addEventListener('DOMContentLoaded', () => renderInitialCards(initialCards));
+      <footer class="footer">
+        &copy; 2025 Around The U.S. By Luigi Benaduce
+      </footer>
+    </div>
+    <script src="./scripts/index.js"></script>
+  </body>
+</html>
