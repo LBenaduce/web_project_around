@@ -11,8 +11,9 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
   gap: 20px;
+  justify-content: center;
 }
 
 .card {
@@ -20,6 +21,8 @@
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
+  max-width: 282px;
+  margin: 0 auto;
 }
 
 .card__image {
@@ -80,4 +83,17 @@
 
 .card__delete-btn:hover {
   opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .elements__list {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .elements__list {
+    grid-template-columns: 1fr;
+  }
 }
