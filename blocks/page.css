@@ -1,27 +1,16 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: #000;
-  color: #fff;
-  font-family: "Inter", Arial, sans-serif;
-}
-
 .page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #000;
-  color: #fff;
+  max-width: 1280px;
+  min-width: 320px;
+  background-color: black;
+  margin: 0 auto;
+  padding: 0 27px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Inter";
 }
 
-.content {
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.footer {
-  flex-shrink: 0;
+@media screen and (max-width: 880px) {
+  .page {
+    max-width: 880px;
+  }
 }
