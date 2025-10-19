@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Lugares ao redor do USA" />
-    <meta name="Author" content="Luiz Benduce" />
-    <meta name="Keywords" content="redes sociais,U.S.A,tripleten,Paisagens" />
-    <title>Around Us</title>
+    <meta name="description" content="Lugares ao redor dos EUA" />
+    <meta name="author" content="Luiz Benaduce" />
+    <meta name="keywords" content="exploração, viagens, EUA, TripleTen, paisagens" />
+    <title>Around The U.S.</title>
     <link rel="stylesheet" href="./src/pages/index.css" />
   </head>
   <body class="page">
@@ -14,9 +14,10 @@
       <img
         class="header__vetor"
         src="./src/images/header_around.svg"
-        alt="'Around the Us' escrito em branco"
+        alt="'Around the U.S.' em branco"
       />
     </header>
+
     <main class="main page__section">
       <section class="profile">
         <div class="profile__avatar-container">
@@ -27,38 +28,28 @@
           />
           <div class="profile__avatar-overlay"></div>
         </div>
+
         <div class="profile__text">
           <h1 class="profile__name">Jacques Cousteau</h1>
-          <button
-            class="profile__pen"
-            type="button"
-            aria-label="edit profile"
-          ></button>
+          <button class="profile__pen" type="button" aria-label="Editar perfil"></button>
           <h2 class="profile__description">Explorador</h2>
         </div>
-        <button
-          class="profile__plus"
-          type="button"
-          aria-label="edit card"
-        ></button>
+
+        <button class="profile__plus" type="button" aria-label="Adicionar novo local"></button>
       </section>
+
       <section class="elements"></section>
     </main>
 
     <footer class="footer page__section">
-      <p class="footer__copyright">&#169; 2025 Around The U.S.</p>
+      <p class="footer__copyright">&copy; 2025 Around The U.S. — Luiz Benaduce</p>
     </footer>
+
     <div class="popup popup-hidden" id="popup-profile">
       <div class="popup__conteiner">
-        <button
-          class="popup__close"
-          id="close"
-          type="button"
-          aria-label="close form"
-        ></button>
+        <button class="popup__close" type="button" aria-label="Fechar"></button>
         <h2 class="popup__text">Editar perfil</h2>
         <form class="popup__profile" novalidate>
-          <label for="name"></label>
           <input
             class="popup__name"
             type="text"
@@ -70,8 +61,6 @@
             maxlength="40"
             required
           />
-          <span id="name-error" class="popup__error"></span>
-          <label for="about"></label>
           <input
             class="popup__about"
             type="text"
@@ -83,21 +72,15 @@
             maxlength="200"
             required
           />
-          <span id="about-error" class="popup__error"></span>
-          <button
-            class="popup__save popup__button_disabled"
-            type="submit"
-            aria-label="save form"
-          >
-            Salvar
-          </button>
+          <button class="popup__save" type="submit">Salvar</button>
         </form>
       </div>
     </div>
+
     <div class="popup popup-hidden" id="popup-addpic">
       <div class="popup__conteiner">
         <button class="popup__close" type="button"></button>
-        <h2 class="popup__text">Novo Local</h2>
+        <h2 class="popup__text">Novo local</h2>
         <form class="popup__addpic" novalidate id="place">
           <input
             class="popup__name"
@@ -109,26 +92,19 @@
             name="local-name"
             required
           />
-          <span id="local-name-error" class="popup__error"></span>
           <input
             class="popup__about"
             id="link"
             type="url"
-            placeholder="Link de Imagem"
+            placeholder="Link de imagem"
             name="link"
             required
           />
-          <span id="link-error" class="popup__error"></span>
-          <button
-            class="popup__save popup__button_disabled"
-            id="save"
-            type="submit"
-          >
-            Criar
-          </button>
+          <button class="popup__save" type="submit">Criar</button>
         </form>
       </div>
     </div>
+
     <div class="popup popup-hidden" id="popup">
       <div class="popup__conteiner-zoom">
         <button class="popup__close-zoom popup__close" type="button"></button>
@@ -140,37 +116,25 @@
     <div class="popup popup-hidden" id="popup-confirm">
       <div class="popup__conteiner popup__confirm">
         <button class="popup__close" type="button"></button>
-        <h2 class="popup__text popup__text-confirm">Tem Certeza?</h2>
-        <button class="popup__save-confirm" id="save" type="submit">Sim</button>
+        <h2 class="popup__text popup__text-confirm">Tem certeza?</h2>
+        <button class="popup__save-confirm" type="button">Sim</button>
       </div>
     </div>
 
     <div class="popup popup-hidden" id="popup-avatar">
       <div class="popup__conteiner">
-        <button
-          class="popup__close"
-          id="close"
-          type="button"
-          aria-label="close form"
-        ></button>
-        <h2 class="popup__text">Alterar a Foto de Perfil</h2>
+        <button class="popup__close" type="button" aria-label="Fechar"></button>
+        <h2 class="popup__text">Alterar foto de perfil</h2>
         <form class="popup__avatar-form" id="avatar-form" novalidate>
           <input
             class="popup__avatar"
             type="url"
             id="avatar-link"
             name="avatar"
-            placeholder="Link para foto de perfil"
+            placeholder="Link da nova foto"
             required
           />
-          <span id="avatar-link-error" class="popup__error"></span>
-          <button
-            class="popup__save popup__button_disabled"
-            type="submit"
-            aria-label="save form"
-          >
-            Salvar
-          </button>
+          <button class="popup__save" type="submit">Salvar</button>
         </form>
       </div>
     </div>
@@ -178,21 +142,14 @@
     <template id="cardTemplate">
       <article class="elements__card">
         <img class="elements__image" src="" alt="" />
-        <button
-          class="elements__remove"
-          type="button"
-          aria-label="trash"
-        ></button>
+        <button class="elements__remove" type="button" aria-label="Excluir"></button>
         <div class="elements__caption">
           <p class="elements__text"></p>
-          <button
-            class="elements__like"
-            type="button"
-            aria-label="Like"
-          ></button>
+          <button class="elements__like" type="button" aria-label="Curtir"></button>
         </div>
       </article>
     </template>
+
     <script type="module" src="./src/pages/index.js"></script>
   </body>
 </html>
