@@ -7,26 +7,28 @@
     <meta name="author" content="Luiz Benaduce" />
     <meta name="keywords" content="exploração, viagens, EUA, TripleTen, paisagens" />
     <title>Around The U.S.</title>
-    <link rel="stylesheet" href="./src/pages/index.css" />
+    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="page">
+    <noscript>Este site usa JavaScript. Ative-o para melhor experiência.</noscript>
+
     <header class="header page__section">
       <img
         class="header__vetor"
-        src="./src/images/header_around.svg"
-        alt="'Around the U.S.' em branco"
+        src="./images/header_around.svg"
+        alt="Logotipo 'Around the U.S.' em branco"
       />
     </header>
 
     <main class="main page__section">
       <section class="profile">
-        <div class="profile__avatar-container">
+        <div class="profile__avatar-container" aria-live="polite">
           <img
             class="profile__avatar"
-            src="./src/images/avatar.jpg"
+            src="./images/avatar.jpg"
             alt="Jacques Cousteau, foto de perfil"
           />
-          <div class="profile__avatar-overlay"></div>
+          <div class="profile__avatar-overlay" aria-hidden="true"></div>
         </div>
 
         <div class="profile__text">
@@ -38,17 +40,17 @@
         <button class="profile__plus" type="button" aria-label="Adicionar novo local"></button>
       </section>
 
-      <section class="elements"></section>
+      <section class="elements" aria-live="polite"></section>
     </main>
 
     <footer class="footer page__section">
       <p class="footer__copyright">&copy; 2025 Around The U.S. — Luiz Benaduce</p>
     </footer>
 
-    <div class="popup popup-hidden" id="popup-profile">
+    <div class="popup popup-hidden" id="popup-profile" role="dialog" aria-modal="true" aria-labelledby="popup-profile-title">
       <div class="popup__conteiner">
         <button class="popup__close" type="button" aria-label="Fechar"></button>
-        <h2 class="popup__text">Editar perfil</h2>
+        <h2 class="popup__text" id="popup-profile-title">Editar perfil</h2>
         <form class="popup__profile" novalidate>
           <input
             class="popup__name"
@@ -77,10 +79,10 @@
       </div>
     </div>
 
-    <div class="popup popup-hidden" id="popup-addpic">
+    <div class="popup popup-hidden" id="popup-addpic" role="dialog" aria-modal="true" aria-labelledby="popup-addpic-title">
       <div class="popup__conteiner">
-        <button class="popup__close" type="button"></button>
-        <h2 class="popup__text">Novo local</h2>
+        <button class="popup__close" type="button" aria-label="Fechar"></button>
+        <h2 class="popup__text" id="popup-addpic-title">Novo local</h2>
         <form class="popup__addpic" novalidate id="place">
           <input
             class="popup__name"
@@ -105,26 +107,26 @@
       </div>
     </div>
 
-    <div class="popup popup-hidden" id="popup">
+    <div class="popup popup-hidden" id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-image-title">
       <div class="popup__conteiner-zoom">
-        <button class="popup__close-zoom popup__close" type="button"></button>
+        <button class="popup__close-zoom popup__close" type="button" aria-label="Fechar"></button>
         <img id="popupimg" class="popup__zoom" src="" alt="" />
         <p class="popup__caption" id="popupCaption"></p>
       </div>
     </div>
 
-    <div class="popup popup-hidden" id="popup-confirm">
+    <div class="popup popup-hidden" id="popup-confirm" role="dialog" aria-modal="true" aria-labelledby="popup-confirm-title">
       <div class="popup__conteiner popup__confirm">
-        <button class="popup__close" type="button"></button>
-        <h2 class="popup__text popup__text-confirm">Tem certeza?</h2>
+        <button class="popup__close" type="button" aria-label="Fechar"></button>
+        <h2 class="popup__text popup__text-confirm" id="popup-confirm-title">Tem certeza?</h2>
         <button class="popup__save-confirm" type="button">Sim</button>
       </div>
     </div>
 
-    <div class="popup popup-hidden" id="popup-avatar">
+    <div class="popup popup-hidden" id="popup-avatar" role="dialog" aria-modal="true" aria-labelledby="popup-avatar-title">
       <div class="popup__conteiner">
         <button class="popup__close" type="button" aria-label="Fechar"></button>
-        <h2 class="popup__text">Alterar foto de perfil</h2>
+        <h2 class="popup__text" id="popup-avatar-title">Alterar foto de perfil</h2>
         <form class="popup__avatar-form" id="avatar-form" novalidate>
           <input
             class="popup__avatar"
@@ -150,6 +152,6 @@
       </article>
     </template>
 
-    <script type="module" src="./src/pages/index.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>

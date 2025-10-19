@@ -1,134 +1,192 @@
-const editBtn = document.querySelector('.profile__pen');
-const addBtn = document.querySelector('.profile__plus');
+import { UserInfo } from "../components/UserInfo.js";
+import { PopupWithConfirmation } from "../components/PopupwithConfirmation.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
+import { Section } from "../components/Section.js";
+import { Card } from "../components/Card.js";
+import { Api } from "../components/Api.js";
+import { FormValidator, validation } from "../components/formValidator.js";
+import { Utils } from "../components/utils.js";
 
-const popupProfile = document.getElementById('popup-profile');
-const popupAdd = document.getElementById('popup-addpic');
-const popupImage = document.getElementById('popup');
-const popupConfirm = document.getElementById('popup-confirm');
+const utils = new Utils({
+  form: document.querySelector(".popup__profile"),
+  title: document.querySelector("h1"),
+  editname: document.querySelector("#name"),
+  description: document.querySelector(".profile__description"),
+  about: document.querySelector("#about"),
+  popup: document.querySelector(".popup"),
+  editprofile: document.querySelector(".profile__pen"),
+  addpic: document.querySelector(".profile__plus"),
+  photoAdd: document.querySelector("#popup-addpic"),
+});
 
-const closeButtons = document.querySelectorAll('.popup__close, .popup__close-zoom');
+const api = new Api({
+  baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
+  headers: {
+    authorization: "79b24936-a205-4985-b1d0-6eeb1d8f406b",
+    "Content-Type": "application/json",
+  },
+});
 
-const profileForm = popupProfile.querySelector('.popup__profile');
-const nameInput = popupProfile.querySelector('.popup__name#name');
-const aboutInput = popupProfile.querySelector('.popup__about#about');
+const onLike = (id, isLiked) => {
+  if (isLiked) {
+    return api.likeCard(id);
+  } else {
+    return api.unlikeCard(id);
+  }
+};
 
-const profileName = document.querySelector('.profile__name');
-const profileDesc = document.querySelector('.profile__description');
+let cardSection;
+function createCard(item) {
+  const card = new Card(
+    {
+      name: item.name,
+      linkUrl: item.link,
+      id: item._id,
+      isLiked: item.isLiked || false,
+      ownerId: item.owner?._id,
+      currentUserId: currentUserId,
+    },
+    "#cardTemplate",
+    handleCardClick,
+    () => {
+      popupConfirm.setSubmitAction(() => {
+        api
+          .deleteCard(item._id)
+          .then(() => {
+            card._handleDelete();
+            popupConfirm.close();
+          })
+          .catch((err) => console.error("Erro ao excluir card:", err));
+      });
+      popupConfirm.open();
+    },
+    onLike
+  );
 
-const addForm = popupAdd.querySelector('.popup__addpic');
-const titleInput = popupAdd.querySelector('#local-name');
-const linkInput = popupAdd.querySelector('#link');
-
-const zoomImg = document.getElementById('popupimg');
-const zoomCaption = document.getElementById('popupCaption');
-
-const elementsSection = document.querySelector('.elements');
-const cardTemplate = document.getElementById('cardTemplate').content;
-
-const initialCards = [
-  { name: "Vale de Yosemite", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg" },
-  { name: "Lago Louise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg" },
-  { name: "Montanhas Carecas", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg" },
-  { name: "Latemar", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg" },
-  { name: "Parque Nacional da Vanoise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg" },
-  { name: "Lago di Braies", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg" }
-];
-
-function openPopup(p) {
-  p.classList.remove('popup-hidden');
-  document.addEventListener('keydown', handleEsc);
+  return card.generateCard();
 }
 
-function closePopup(p) {
-  p.classList.add('popup-hidden');
-  document.removeEventListener('keydown', handleEsc);
+function loadCards() {
+  api
+    .getCards()
+    .then((data) => {
+      console.log("Resposta da API:", data);
+      cardSection = new Section(
+        {
+          items: data,
+          renderer: (item) => createCard(item),
+        },
+
+        ".elements"
+      );
+      cardSection.renderItems();
+    })
+    .catch((err) => console.error("erro ao buscar Cards:", err));
+}
+const popupWithImage = new PopupWithImage(
+  "#popup",
+  document.querySelector("#popupimg"),
+  document.querySelector("#popupCaption")
+);
+popupWithImage.setEventListeners();
+
+const popupConfirm = new PopupWithConfirmation("#popup-confirm");
+popupConfirm.setEventListeners();
+
+function handleCardClick(name, link) {
+  console.log("handleCardClick chamada com:", name, link);
+  popupWithImage.open({ name, link });
 }
 
-function handleEsc(e) {
-  if (e.key === 'Escape') {
-    const opened = document.querySelector('.popup:not(.popup-hidden)');
-    if (opened) closePopup(opened);
+const userInfo = new UserInfo({
+  nameSelector: ".profile__name",
+  aboutSelector: ".profile__description",
+});
+
+let currentUserId;
+api
+  .getUserInfo()
+  .then((userData) => {
+    currentUserId = userData._id;
+    userInfo.setUserInfo({
+      name: userData.name,
+      about: userData.about,
+    });
+    document.querySelector(".profile__avatar").src = userData.avatar;
+    loadCards();
+  })
+  .catch((err) => {
+    console.error("Erro ao carregar dados do usuário:", err);
+  });
+
+const profilePopup = new PopupWithForm("#popup-profile", (formData) => {
+  return api
+    .updateUserInfo({
+      name: formData.name,
+      about: formData.about,
+    })
+    .then((updatedUser) => {
+      userInfo.setUserInfo({
+        name: updatedUser.name,
+        about: updatedUser.about,
+      });
+      profilePopup.close();
+    })
+    .catch((err) => {
+      console.error("Erro ao atualizar perfil:", err);
+    });
+});
+
+profilePopup.setEventListeners();
+
+const addPlacePopup = new PopupWithForm("#popup-addpic", (formData) => {
+  return api
+    .createCard({
+      name: formData["local-name"],
+      link: formData.link,
+    })
+    .then((newCard) => {
+      newCard.owner = { _id: currentUserId };
+      const cardElement = createCard(newCard);
+      cardSection.addItem(cardElement);
+      addPlacePopup.close();
+    })
+
+    .catch((err) => console.error("erro ao criar card", err));
+});
+
+addPlacePopup.setEventListeners();
+
+const avatarOverlay = document.querySelector(".profile__avatar-overlay");
+const avatarPopup = document.querySelector("#popup-avatar");
+const avatarPopupForm = new PopupWithForm("#popup-avatar", (formData) => {
+  if (!isValidUrl(formData.avatar)) {
+    return Promise.reject("URL do avatar Inválida");
+  }
+  console.log("enviando para updateAvatar:", formData.avatar);
+  return api
+    .updateAvatar(formData.avatar)
+    .then((res) => {
+      document.querySelector(".profile__avatar").src = res.avatar;
+      avatarPopupForm.close();
+    })
+    .catch((err) => {
+      console.error("Erro ao atualizar avatar:", err);
+    });
+});
+
+avatarPopupForm.setEventListeners();
+
+avatarOverlay.addEventListener("click", () => {
+  avatarPopupForm.open();
+});
+
+function isValidUrl(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (_) {
+    return false;
   }
 }
-
-closeButtons.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const p = btn.closest('.popup');
-    if (p) closePopup(p);
-  });
-});
-
-document.querySelectorAll('.popup').forEach((p) => {
-  p.addEventListener('mousedown', (e) => {
-    if (e.target === p) closePopup(p);
-  });
-});
-
-editBtn.addEventListener('click', () => {
-  nameInput.value = profileName.textContent;
-  aboutInput.value = profileDesc.textContent;
-  openPopup(popupProfile);
-});
-
-profileForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  profileName.textContent = nameInput.value.trim();
-  profileDesc.textContent = aboutInput.value.trim();
-  closePopup(popupProfile);
-});
-
-addBtn.addEventListener('click', () => openPopup(popupAdd));
-
-addForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const card = createCard({ name: titleInput.value.trim(), link: linkInput.value.trim() });
-  elementsSection.prepend(card);
-  addForm.reset();
-  closePopup(popupAdd);
-});
-
-function createCard({ name, link }) {
-  const node = cardTemplate.querySelector('.elements__card').cloneNode(true);
-  const img = node.querySelector('.elements__image');
-  const title = node.querySelector('.elements__text');
-  const likeBtn = node.querySelector('.elements__like');
-  const removeBtn = node.querySelector('.elements__remove');
-
-  title.textContent = name;
-  img.src = link;
-  img.alt = name;
-
-  likeBtn.addEventListener('click', () => {
-    likeBtn.classList.toggle('elements__like_active');
-    likeBtn.setAttribute('aria-pressed', likeBtn.classList.contains('elements__like_active'));
-  });
-
-  removeBtn.addEventListener('click', () => {
-    const toDelete = node;
-    openPopup(popupConfirm);
-    const yesBtn = popupConfirm.querySelector('.popup__save-confirm');
-    const onYes = () => {
-      toDelete.remove();
-      yesBtn.removeEventListener('click', onYes);
-      closePopup(popupConfirm);
-    };
-    yesBtn.addEventListener('click', onYes, { once: true });
-  });
-
-  img.addEventListener('click', () => {
-    zoomImg.src = link;
-    zoomImg.alt = name;
-    zoomCaption.textContent = name;
-    openPopup(popupImage);
-  });
-
-  return node;
-}
-
-function renderInitial(cards) {
-  const frag = document.createDocumentFragment();
-  cards.forEach((c) => frag.appendChild(createCard(c)));
-  elementsSection.appendChild(frag);
-}
-
-document.addEventListener('DOMContentLoaded', () => renderInitial(initialCards));
