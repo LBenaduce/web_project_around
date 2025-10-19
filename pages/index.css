@@ -6,3 +6,72 @@
 @import url(../blocks/elements.css);
 @import url(../blocks/footer.css);
 @import url(../blocks/popup.css)
+
+.elements__like,
+.elements__remove {
+  width: 22px;
+  height: 19px;
+  border: none;
+  background: transparent center/contain no-repeat;
+  cursor: pointer;
+}
+
+.elements__like {
+  background-image: url("../images/like.svg");
+}
+
+.elements__like_active {
+  background-image: url("../images/like-active.svg");
+}
+
+.elements__remove {
+  width: 18px;
+  height: 18px;
+  background-image: url("../images/delete.svg");
+}
+
+.profile__plus,
+.profile__pen {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent center/contain no-repeat;
+  cursor: pointer;
+}
+
+.profile__plus {
+  background-image: url("../images/plus-sign.png");
+}
+
+.profile__pen {
+  background-image: url("../images/edit-sign.png");
+}
+
+.popup__close,
+.popup__close-zoom {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent center/contain no-repeat;
+  background-image: url("../images/close-icon.png");
+  cursor: pointer;
+}
+
+.elements__like:hover,
+.elements__remove:hover,
+.profile__plus:hover,
+.profile__pen:hover,
+.popup__close:hover,
+.popup__close-zoom:hover {
+  opacity: .8;
+}
+
+.elements__like:focus-visible,
+.elements__remove:focus-visible,
+.profile__plus:focus-visible,
+.profile__pen:focus-visible,
+.popup__close:focus-visible,
+.popup__close-zoom:focus-visible {
+  outline: 2px solid #2f80ed;
+  outline-offset: 2px;
+}
