@@ -7,71 +7,312 @@
 @import url(../blocks/footer.css);
 @import url(../blocks/popup.css)
 
-.elements__like,
-.elements__remove {
-  width: 22px;
-  height: 19px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page {
+  font-family: "Inter", Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.page__section {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 45px 0 40px;
+}
+
+.header__vetor {
+  width: 173px;
+  height: 33px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+}
+
+.profile__avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile__text {
+  flex: 1;
+  margin-left: 30px;
+}
+
+.profile__name {
+  font-size: 42px;
+  line-height: 48px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.profile__description {
+  font-size: 18px;
+  line-height: 22px;
+  color: #ccc;
+}
+
+.profile__pen {
+  width: 24px;
+  height: 24px;
+  background: transparent url("../images/edit-sign.png") center no-repeat;
+  background-size: contain;
   border: none;
-  background: transparent center/contain no-repeat;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.profile__plus {
+  width: 150px;
+  height: 50px;
+  background: transparent url("../images/plus-sign.png") center no-repeat;
+  background-size: contain;
+  border: 2px solid #fff;
+  border-radius: 2px;
   cursor: pointer;
 }
 
+.elements {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  gap: 20px;
+  padding: 50px 0;
+}
+
+.elements__card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #222;
+}
+
+.elements__image {
+  width: 100%;
+  height: 282px;
+  object-fit: cover;
+  display: block;
+}
+
+.elements__remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 19px;
+  background: transparent url("../images/delete.svg") center no-repeat;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+}
+
+.elements__caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.elements__text {
+  font-size: 18px;
+  line-height: 22px;
+  color: #fff;
+}
+
 .elements__like {
-  background-image: url("../images/like.svg");
+  width: 22px;
+  height: 19px;
+  background: transparent url("../images/like.svg") center no-repeat;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
 }
 
 .elements__like_active {
   background-image: url("../images/like-active.svg");
 }
 
-.elements__remove {
-  width: 18px;
-  height: 18px;
-  background-image: url("../images/delete.svg");
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
 }
 
-.profile__plus,
-.profile__pen {
-  width: 24px;
-  height: 24px;
+.footer__copyright {
+  font-size: 18px;
+  color: #545454;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.popup_opened {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popup__container,
+.popup__container-zoom {
+  background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  padding: 34px 36px 37px;
+  max-width: 430px;
+  width: 100%;
+  position: relative;
+}
+
+.popup__container-zoom {
+  background: transparent;
+  max-width: 75vw;
+  max-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup__zoom {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 10px;
+}
+
+.popup__caption {
+  color: #fff;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.popup__close {
+  background: transparent url("../images/close-icon.png") center no-repeat;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
   border: none;
-  background: transparent center/contain no-repeat;
+  position: absolute;
+  top: -40px;
+  right: -40px;
   cursor: pointer;
 }
 
-.profile__plus {
-  background-image: url("../images/plus-sign.png");
+.popup__text {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 40px;
 }
 
-.profile__pen {
-  background-image: url("../images/edit-sign.png");
+.popup__profile,
+.popup__addpic,
+.popup__avatar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
-.popup__close,
-.popup__close-zoom {
-  width: 24px;
-  height: 24px;
+.popup__name,
+.popup__about,
+.popup__avatar {
   border: none;
-  background: transparent center/contain no-repeat;
-  background-image: url("../images/close-icon.png");
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 13px;
+  font-size: 14px;
+  line-height: 17px;
+  outline: none;
+}
+
+.popup__save,
+.popup__save-confirm {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  padding: 14px 0;
+  font-size: 18px;
+  line-height: 22px;
   cursor: pointer;
 }
 
-.elements__like:hover,
-.elements__remove:hover,
-.profile__plus:hover,
-.profile__pen:hover,
-.popup__close:hover,
-.popup__close-zoom:hover {
-  opacity: .8;
+.popup__save:hover,
+.popup__save-confirm:hover {
+  opacity: 0.8;
 }
 
-.elements__like:focus-visible,
-.elements__remove:focus-visible,
-.profile__plus:focus-visible,
-.profile__pen:focus-visible,
-.popup__close:focus-visible,
-.popup__close-zoom:focus-visible {
-  outline: 2px solid #2f80ed;
-  outline-offset: 2px;
+.popup__save-confirm {
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+  }
+
+  .profile__name {
+    font-size: 27px;
+    line-height: 32px;
+  }
+
+  .profile__plus {
+    width: 282px;
+    margin-top: 30px;
+  }
+
+  .elements {
+    gap: 15px;
+  }
+
+  .popup__container {
+    padding: 25px;
+  }
+
+  .popup__close {
+    top: -36px;
+    right: -36px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .page__section {
+    padding: 0 10px;
+  }
+
+  .profile__name {
+    font-size: 22px;
+  }
+
+  .popup__text {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
 }
