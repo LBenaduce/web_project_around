@@ -107,10 +107,11 @@
 
 .elements__image {
   width: 100%;
-  height: 282px;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
 }
+
 
 .elements__remove {
   position: absolute;
