@@ -24,7 +24,8 @@ const inputPlaceLink = popupAddPic.querySelector("#link");
 const zoomImg = popupImage.querySelector("#popupimg");
 const zoomCaption = popupImage.querySelector("#popupCaption");
 
-const confirmBtn = popupConfirm.querySelector(".popup__save-confirm");
+const confirmBtn = popupConfirm.querySelector(".popup__save--confirm");
+const cancelBtn = popupConfirm.querySelector(".popup__save--cancel");
 let cardToDelete = null;
 
 function onEscClose(evt) {
@@ -77,6 +78,7 @@ formAddPic.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = inputPlaceName.value.trim();
   const link = inputPlaceLink.value.trim();
+  if (!name || !link) return;
   const card = createCard({ name, link });
   elementsSection.prepend(card);
   formAddPic.reset();
@@ -88,7 +90,7 @@ if (formAvatar) {
     e.preventDefault();
     const url = popupAvatar.querySelector("#avatar-link").value.trim();
     const avatarEl = document.querySelector(".profile__avatar");
-    if (avatarEl) avatarEl.src = url;
+    if (avatarEl && url) avatarEl.src = url;
     formAvatar.reset();
     closePopup(popupAvatar);
   });
@@ -123,6 +125,11 @@ confirmBtn.addEventListener("click", () => {
     cardToDelete.remove();
     cardToDelete = null;
   }
+  closePopup(popupConfirm);
+});
+
+cancelBtn.addEventListener("click", () => {
+  cardToDelete = null;
   closePopup(popupConfirm);
 });
 
