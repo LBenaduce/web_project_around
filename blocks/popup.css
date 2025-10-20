@@ -16,7 +16,7 @@
   display: none;
 }
 
-.popup__conteiner {
+.popup__container {
   width: 430px;
   min-height: 330px;
   background-color: white;
@@ -146,7 +146,7 @@
   object-fit: cover;
 }
 
-.popup__conteiner-zoom {
+.popup__container-zoom {
   box-sizing: border-box;
   position: relative;
 }
@@ -184,7 +184,7 @@
 }
 
 @media screen and (max-width: 632px) {
-  .popup__conteiner {
+  .popup__ccontainer {
     width: 282px;
     height: 322px;
     padding: 25px 22px 22px;
@@ -224,9 +224,26 @@
 
   .popup__text-confirm {
     margin-bottom: 38px;
+
   }
+
   .popup__save-confirm {
     max-width: 282px;
     width: 100%;
   }
+
+  .popup__buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}  
+
+.popup__save--cancel {
+  background-color: #cccccc;
+  color: #000000;
 }
+
+.popup__save--confirm {
+  background-color: #ff0000; 
+}
+
