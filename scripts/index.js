@@ -28,6 +28,17 @@ const confirmBtn = popupConfirm.querySelector(".popup__save--confirm");
 const cancelBtn = popupConfirm.querySelector(".popup__save--cancel");
 let cardToDelete = null;
 
+const validationSettings = {
+  formSelector: ".popup__profile, .popup__addpic, .popup__avatar-form",
+  inputSelector: "input, textarea",
+  submitButtonSelector: ".popup__save",
+  inactiveButtonClass: "popup__save_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+window.FormValidation.enableValidation(validationSettings);
+
 function onEscClose(evt) {
   if (evt.key === "Escape") {
     const opened = document.querySelector(".popup_opened");
@@ -39,6 +50,10 @@ function openPopup(popup) {
   popup.classList.remove("popup-hidden");
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", onEscClose);
+  const form = popup.querySelector(".popup__profile, .popup__addpic, .popup__avatar-form");
+  if (form && window.FormValidation?.resetValidation) {
+    window.FormValidation.resetValidation(form, validationSettings);
+  }
 }
 
 function closePopup(popup) {
@@ -69,6 +84,7 @@ btnAddPlace.addEventListener("click", () => openPopup(popupAddPic));
 
 formProfile.addEventListener("submit", (e) => {
   e.preventDefault();
+  if (!formProfile.checkValidity()) return;
   profileName.textContent = profileInputName.value.trim();
   profileDesc.textContent = profileInputAbout.value.trim();
   closePopup(popupProfile);
@@ -76,22 +92,25 @@ formProfile.addEventListener("submit", (e) => {
 
 formAddPic.addEventListener("submit", (e) => {
   e.preventDefault();
+  if (!formAddPic.checkValidity()) return;
   const name = inputPlaceName.value.trim();
   const link = inputPlaceLink.value.trim();
-  if (!name || !link) return;
   const card = createCard({ name, link });
   elementsSection.prepend(card);
   formAddPic.reset();
+  window.FormValidation.resetValidation(formAddPic, validationSettings);
   closePopup(popupAddPic);
 });
 
 if (formAvatar) {
   formAvatar.addEventListener("submit", (e) => {
     e.preventDefault();
+    if (!formAvatar.checkValidity()) return;
     const url = popupAvatar.querySelector("#avatar-link").value.trim();
     const avatarEl = document.querySelector(".profile__avatar");
     if (avatarEl && url) avatarEl.src = url;
     formAvatar.reset();
+    window.FormValidation.resetValidation(formAvatar, validationSettings);
     closePopup(popupAvatar);
   });
 }
