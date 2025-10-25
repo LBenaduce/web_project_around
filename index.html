@@ -54,8 +54,10 @@
         <h2 class="popup__text" id="popup-profile-title">Editar perfil</h2>
         <form class="popup__profile" novalidate>
           <input class="popup__name" type="text" id="name" name="name" placeholder="Nome" value="Jacques Cousteau" minlength="2" maxlength="40" required />
+          <span class="popup__error" id="name-error"></span>
           <input class="popup__about" type="text" id="about" name="about" placeholder="Sobre mim" value="Explorador" minlength="2" maxlength="200" required />
-          <button class="popup__save" type="submit">Salvar</button>
+          <span class="popup__error" id="about-error"></span>
+          <button class="popup__save" type="submit" disabled>Salvar</button>
         </form>
       </div>
     </div>
@@ -66,8 +68,10 @@
         <h2 class="popup__text" id="popup-addpic-title">Novo local</h2>
         <form class="popup__addpic" novalidate id="place">
           <input class="popup__name" id="local-name" type="text" placeholder="Título" minlength="2" maxlength="30" name="local-name" required />
+          <span class="popup__error" id="local-name-error"></span>
           <input class="popup__about" id="link" type="url" placeholder="Link de imagem" name="link" required />
-          <button class="popup__save" type="submit">Criar</button>
+          <span class="popup__error" id="link-error"></span>
+          <button class="popup__save" type="submit" disabled>Criar</button>
         </form>
       </div>
     </div>
@@ -97,7 +101,8 @@
         <h2 class="popup__text" id="popup-avatar-title">Alterar foto de perfil</h2>
         <form class="popup__avatar-form" id="avatar-form" novalidate>
           <input class="popup__avatar" type="url" id="avatar-link" name="avatar" placeholder="Link da nova foto" required />
-          <button class="popup__save" type="submit">Salvar</button>
+          <span class="popup__error" id="avatar-link-error"></span>
+          <button class="popup__save" type="submit" disabled>Salvar</button>
         </form>
       </div>
     </div>
@@ -113,6 +118,7 @@
       </article>
     </template>
 
+    <script src="./scripts/validate.js"></script>
     <script type="module" src="./scripts/index.js?v=1"></script>
   </body>
 </html>
