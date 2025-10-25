@@ -313,3 +313,29 @@
     margin-bottom: 20px;
   }
 }
+
+.popup__error {
+  display: block;
+  min-height: 18px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #ff3b30;        
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  margin-top: 6px;
+}
+
+.popup__error_visible {
+  opacity: 1;
+}
+
+.popup__input_type_error {
+  border-bottom-color: #ff3b30;
+  outline: none;
+}
+
+.popup__save_disabled {
+  background-color: #e5e5e5;
+  color: #9e9e9e;
+  cursor: not-allowed;
+}
