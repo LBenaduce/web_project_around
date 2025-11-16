@@ -1,5 +1,3 @@
-// scripts/Card.js
-
 export default class Card {
   constructor(data, templateSelector, handleCardClick, handleDeleteClick) {
     this._name = data.name;
@@ -38,7 +36,6 @@ export default class Card {
   }
 
   _handleDeleteCard() {
-    // Não remove direto, só avisa o index.js
     if (this._handleDeleteClick) {
       this._handleDeleteClick(this._element);
     }

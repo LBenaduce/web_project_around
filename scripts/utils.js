@@ -1,5 +1,3 @@
-// scripts/utils.js
-
 const POPUP_OPENED_CLASS = 'popup_opened';
 
 function handleEscClose(evt) {

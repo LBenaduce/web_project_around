@@ -84,13 +84,32 @@ function createCard(data) {
 }
 
 const initialCards = [
-  { name: 'Vale de Yosemite', link: './images/yosemite.png' },
-  { name: 'Lago Louise', link: './images/louise.png' },
-  { name: 'Montanhas Carecas', link: './images/montanhas.png' },
-  { name: 'Latemar', link: './images/latemar.png' },
-  { name: 'Parque Nacional Vanoise', link: './images/vanoise.png' },
-  { name: 'Lago di Braies', link: './images/braies.png' }
+  {
+    name: 'Vale de Yosemite',
+    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg'
+  },
+  {
+    name: 'Lago Louise',
+    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg'
+  },
+  {
+    name: 'Montanhas Carecas',
+    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg'
+  },
+  {
+    name: 'Latemar',
+    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg'
+  },
+  {
+    name: 'Parque Nacional Vanoise',
+    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg'
+  },
+  {
+    name: 'Lago di Braies',
+    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_braies.jpg'
+  }
 ];
+
 
 initialCards.forEach((data) => {
   const cardElement = createCard(data);

@@ -1,7 +1,7 @@
-
 export default class FormValidator {
   constructor(config, formElement) {
     this._formElement = formElement;
+    this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
     this._inactiveButtonClass = config.inactiveButtonClass;
@@ -18,7 +18,7 @@ export default class FormValidator {
 
   _showInputError(inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(
-      `.${inputElement.id}-error`
+      `#${inputElement.id}-error`
     );
 
     if (!errorElement) return;
@@ -30,7 +30,7 @@ export default class FormValidator {
 
   _hideInputError(inputElement) {
     const errorElement = this._formElement.querySelector(
-      `.${inputElement.id}-error`
+      `#${inputElement.id}-error`
     );
 
     if (!errorElement) return;
@@ -90,11 +90,6 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    this._formElement.addEventListener('submit', (evt) => {
-      // o index.js trata o submit, aqui só previne envio "padrão"
-      evt.preventDefault();
-    });
-
     this._setEventListeners();
   }
 }
