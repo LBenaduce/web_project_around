@@ -21,7 +21,7 @@ const btnAddPlace = document.querySelector('.profile__plus');
 
 const formProfile = popupProfile.querySelector('.popup__profile');
 const formAddPic = popupAddPic.querySelector('.popup__addpic');
-const formAvatar = popupAvatar?.querySelector('#avatar-form');
+const formAvatar = popupAvatar.querySelector('#avatar-form');
 
 const profileInputName = popupProfile.querySelector('#name');
 const profileInputAbout = popupProfile.querySelector('#about');
@@ -35,7 +35,7 @@ const zoomCaption = popupImage.querySelector('#popupCaption');
 const confirmBtn = popupConfirm.querySelector('.popup__save--confirm');
 const cancelBtn = popupConfirm.querySelector('.popup__save--cancel');
 
-const avatarInput = popupAvatar?.querySelector('#avatar-link');
+const avatarInput = popupAvatar.querySelector('#avatar-link');
 const avatarEl = document.querySelector('.profile__avatar');
 
 let cardToDelete = null;
@@ -51,15 +51,11 @@ const validationConfig = {
 
 const profileFormValidator = new FormValidator(validationConfig, formProfile);
 const addPicFormValidator = new FormValidator(validationConfig, formAddPic);
-let avatarFormValidator = null;
+const avatarFormValidator = new FormValidator(validationConfig, formAvatar);
 
 profileFormValidator.enableValidation();
 addPicFormValidator.enableValidation();
-
-if (formAvatar) {
-  avatarFormValidator = new FormValidator(validationConfig, formAvatar);
-  avatarFormValidator.enableValidation();
-}
+avatarFormValidator.enableValidation();
 
 function handleCardClick(name, link) {
   zoomImg.src = link;
@@ -110,14 +106,16 @@ const initialCards = [
   }
 ];
 
-initialCards.forEach((data) => {
+initialCards.forEach(function (data) {
   const cardElement = createCard(data);
   elementsSection.appendChild(cardElement);
 });
 
-formProfile.addEventListener('submit', (e) => {
+formProfile.addEventListener('submit', function (e) {
   e.preventDefault();
-  if (!formProfile.checkValidity()) return;
+  if (!formProfile.checkValidity()) {
+    return;
+  }
 
   profileName.textContent = profileInputName.value.trim();
   profileDesc.textContent = profileInputAbout.value.trim();
@@ -125,14 +123,16 @@ formProfile.addEventListener('submit', (e) => {
   closePopup(popupProfile);
 });
 
-formAddPic.addEventListener('submit', (e) => {
+formAddPic.addEventListener('submit', function (e) {
   e.preventDefault();
-  if (!formAddPic.checkValidity()) return;
+  if (!formAddPic.checkValidity()) {
+    return;
+  }
 
   const name = inputPlaceName.value.trim();
   const link = inputPlaceLink.value.trim();
 
-  const card = createCard({ name, link });
+  const card = createCard({ name: name, link: link });
   elementsSection.prepend(card);
 
   formAddPic.reset();
@@ -140,36 +140,36 @@ formAddPic.addEventListener('submit', (e) => {
   closePopup(popupAddPic);
 });
 
-if (formAvatar) {
-  formAvatar.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!formAvatar.checkValidity()) return;
+formAvatar.addEventListener('submit', function (e) {
+  e.preventDefault();
+  if (!formAvatar.checkValidity()) {
+    return;
+  }
 
-    const url = avatarInput.value.trim();
-    if (avatarEl && url) {
-      avatarEl.src = url;
-    }
+  const url = avatarInput.value.trim();
+  if (avatarEl && url) {
+    avatarEl.src = url;
+  }
 
-    formAvatar.reset();
-    avatarFormValidator?.resetValidation();
-    closePopup(popupAvatar);
-  });
-}
+  formAvatar.reset();
+  avatarFormValidator.resetValidation();
+  closePopup(popupAvatar);
+});
 
-btnEditProfile.addEventListener('click', () => {
+btnEditProfile.addEventListener('click', function () {
   profileInputName.value = profileName.textContent.trim();
   profileInputAbout.value = profileDesc.textContent.trim();
   profileFormValidator.resetValidation();
   openPopup(popupProfile);
 });
 
-btnAddPlace.addEventListener('click', () => {
+btnAddPlace.addEventListener('click', function () {
   formAddPic.reset();
   addPicFormValidator.resetValidation();
   openPopup(popupAddPic);
 });
 
-confirmBtn.addEventListener('click', () => {
+confirmBtn.addEventListener('click', function () {
   if (cardToDelete) {
     cardToDelete.remove();
     cardToDelete = null;
@@ -177,11 +177,11 @@ confirmBtn.addEventListener('click', () => {
   closePopup(popupConfirm);
 });
 
-cancelBtn.addEventListener('click', () => {
+cancelBtn.addEventListener('click', function () {
   cardToDelete = null;
   closePopup(popupConfirm);
 });
 
-document.querySelectorAll('.popup').forEach((popup) => {
+document.querySelectorAll('.popup').forEach(function (popup) {
   setClosePopupByOverlay(popup);
 });
