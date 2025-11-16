@@ -41,7 +41,8 @@ const avatarEl = document.querySelector('.profile__avatar');
 let cardToDelete = null;
 
 const validationConfig = {
-  inputSelector: 'input, textarea',
+  formSelector: '.popup__profile, .popup__addpic, .popup__avatar-form',
+  inputSelector: '.popup__name, .popup__about, .popup__avatar',
   submitButtonSelector: '.popup__save',
   inactiveButtonClass: 'popup__save_disabled',
   inputErrorClass: 'popup__input_type_error',
@@ -73,7 +74,12 @@ function handleDeleteClick(cardElement) {
 }
 
 function createCard(data) {
-  const card = new Card(data, '#cardTemplate', handleCardClick, handleDeleteClick);
+  const card = new Card(
+    data,
+    '#cardTemplate',
+    handleCardClick,
+    handleDeleteClick
+  );
   return card.generateCard();
 }
 
