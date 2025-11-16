@@ -1,16 +1,19 @@
+// scripts/Card.js
+
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(data, templateSelector, handleCardClick, handleDeleteClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
   }
 
   _getTemplate() {
     const cardTemplate = document
       .querySelector(this._templateSelector)
       .content
-      .querySelector('.card') 
+      .querySelector('.elements__card')
       .cloneNode(true);
 
     return cardTemplate;
@@ -31,25 +34,29 @@ export default class Card {
   }
 
   _handleLikeIcon() {
-    this._likeButton.classList.toggle('card__like-button_active');
+    this._likeButton.classList.toggle('elements__like_active');
   }
 
   _handleDeleteCard() {
-    this._element.remove();
-    this._element = null;
+    // Não remove direto, só avisa o index.js
+    if (this._handleDeleteClick) {
+      this._handleDeleteClick(this._element);
+    }
   }
 
   _handleImageClick() {
-    this._handleCardClick(this._name, this._link);
+    if (this._handleCardClick) {
+      this._handleCardClick(this._name, this._link);
+    }
   }
 
   generateCard() {
     this._element = this._getTemplate();
 
-    this._imageElement = this._element.querySelector('.card__image');
-    this._titleElement = this._element.querySelector('.card__title');
-    this._likeButton = this._element.querySelector('.card__like-button');
-    this._deleteButton = this._element.querySelector('.card__delete-button');
+    this._imageElement = this._element.querySelector('.elements__image');
+    this._titleElement = this._element.querySelector('.elements__text');
+    this._likeButton = this._element.querySelector('.elements__like');
+    this._deleteButton = this._element.querySelector('.elements__remove');
 
     this._imageElement.src = this._link;
     this._imageElement.alt = this._name;
