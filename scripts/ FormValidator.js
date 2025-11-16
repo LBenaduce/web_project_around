@@ -1,7 +1,6 @@
 export default class FormValidator {
   constructor(config, formElement) {
     this._formElement = formElement;
-    this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
     this._inactiveButtonClass = config.inactiveButtonClass;
@@ -53,11 +52,13 @@ export default class FormValidator {
   }
 
   _disableButton() {
+    if (!this._buttonElement) return;
     this._buttonElement.classList.add(this._inactiveButtonClass);
     this._buttonElement.disabled = true;
   }
 
   _enableButton() {
+    if (!this._buttonElement) return;
     this._buttonElement.classList.remove(this._inactiveButtonClass);
     this._buttonElement.disabled = false;
   }
