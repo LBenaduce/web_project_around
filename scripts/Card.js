@@ -17,34 +17,22 @@ export default class Card {
     return cardTemplate;
   }
 
+  _toggleLike() {
+    this._likeButton.classList.toggle('elements__like-on');
+  }
+
   _setEventListeners() {
     this._likeButton.addEventListener('click', () => {
-      this._handleLikeIcon();
+      this._toggleLike();
     });
 
     this._deleteButton.addEventListener('click', () => {
-      this._handleDeleteCard();
+      this._handleDeleteClick(this._element);
     });
 
     this._imageElement.addEventListener('click', () => {
-      this._handleImageClick();
-    });
-  }
-
-  _handleLikeIcon() {
-    this._likeButton.classList.toggle('elements__like_active');
-  }
-
-  _handleDeleteCard() {
-    if (this._handleDeleteClick) {
-      this._handleDeleteClick(this._element);
-    }
-  }
-
-  _handleImageClick() {
-    if (this._handleCardClick) {
       this._handleCardClick(this._name, this._link);
-    }
+    });
   }
 
   generateCard() {
