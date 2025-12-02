@@ -15,11 +15,12 @@ export default class FormValidator {
     );
   }
 
-  _showInputError(inputElement, errorMessage) {
-    const errorElement = this._formElement.querySelector(
-      `#${inputElement.id}-error`
-    );
+  _getErrorElement(inputElement) {
+    return this._formElement.querySelector(`#${inputElement.id}-error`);
+  }
 
+  _showInputError(inputElement, errorMessage) {
+    const errorElement = this._getErrorElement(inputElement);
     if (!errorElement) return;
 
     inputElement.classList.add(this._inputErrorClass);
@@ -28,10 +29,7 @@ export default class FormValidator {
   }
 
   _hideInputError(inputElement) {
-    const errorElement = this._formElement.querySelector(
-      `#${inputElement.id}-error`
-    );
-
+    const errorElement = this._getErrorElement(inputElement);
     if (!errorElement) return;
 
     inputElement.classList.remove(this._inputErrorClass);

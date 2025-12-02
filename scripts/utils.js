@@ -41,3 +41,31 @@ export {
   closePopup,
   setClosePopupByOverlay
 };
+
+export const initialCards = [
+  {
+    name: 'Vale de Yosemite',
+    link: 'images/yosemite.png'
+  },
+  {
+    name: 'Lago Louise',
+    link: 'images/louise.png'
+  },
+  {
+    name: 'Montanhas Carecas',
+    link: 'images/montanhas.png'
+  },
+  {
+    name: 'Latemar',
+    link: 'images/latemar.png'
+  },
+  {
+    name: 'Parque Nacional de Vanoise',
+    link: 'images/vanoise.png'
+  },
+  {
+    name: 'Lago di Braies',
+    link: 'images/braies.png'
+  }
+];
+

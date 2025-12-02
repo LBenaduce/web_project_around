@@ -5,6 +5,7 @@ import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
 import UserInfo from './UserInfo.js';
+import { initialCards } from './utils.js';
 
 const elementsSectionSelector = '.elements';
 
@@ -73,11 +74,32 @@ function handleCardClick(name, link) {
 const confirmPopup = new Popup(popupConfirmSelector);
 confirmPopup.setEventListeners();
 
-let cardToDelete = null;
+function openConfirmPopup(onConfirm) {
+  confirmPopup.open();
+
+  function handleConfirm() {
+    onConfirm();
+    cleanup();
+  }
+
+  function handleCancel() {
+    cleanup();
+  }
+
+  function cleanup() {
+    confirmPopup.close();
+    confirmBtn.removeEventListener('click', handleConfirm);
+    cancelBtn.removeEventListener('click', handleCancel);
+  }
+
+  confirmBtn.addEventListener('click', handleConfirm);
+  cancelBtn.addEventListener('click', handleCancel);
+}
 
 function handleDeleteClick(cardElement) {
-  cardToDelete = cardElement;
-  confirmPopup.open();
+  openConfirmPopup(() => {
+    cardElement.remove();
+  });
 }
 
 function createCard(data) {
@@ -89,33 +111,6 @@ function createCard(data) {
   );
   return card.generateCard();
 }
-
-const initialCards = [
-  {
-    name: 'Vale de Yosemite',
-    link: 'images/yosemite.png'
-  },
-  {
-    name: 'Lago Louise',
-    link: 'images/louise.png'
-  },
-  {
-    name: 'Montanhas Carecas',
-    link: 'images/montanhas.png'
-  },
-  {
-    name: 'Latemar',
-    link: 'images/latemar.png'
-  },
-  {
-    name: 'Parque Nacional de Vanoise',
-    link: 'images/vanoise.png'
-  },
-  {
-    name: 'Lago di Braies',
-    link: 'images/braies.png'
-  }
-];
 
 const cardSection = new Section(
   {
@@ -172,7 +167,6 @@ const avatarPopup = new PopupWithForm(
 );
 avatarPopup.setEventListeners();
 
-
 btnEditProfile.addEventListener('click', () => {
   const currentUser = userInfo.getUserInfo();
   profileInputName.value = currentUser.name.trim();
@@ -191,17 +185,4 @@ avatarElement.addEventListener('click', () => {
   formAvatar.reset();
   avatarFormValidator.resetValidation();
   avatarPopup.open();
-});
-
-confirmBtn.addEventListener('click', () => {
-  if (cardToDelete) {
-    cardToDelete.remove();
-    cardToDelete = null;
-  }
-  confirmPopup.close();
-});
-
-cancelBtn.addEventListener('click', () => {
-  cardToDelete = null;
-  confirmPopup.close();
 });
