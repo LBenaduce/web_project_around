@@ -59,7 +59,7 @@ const userInfo = new UserInfo({
 const api = new Api({
   baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
   headers: {
-    authorization: "SEU_TOKEN_AQUI",
+    authorization: 69fd8912-d203-4d23-9e89-fec18278fd2c,
     "Content-Type": "application/json",
   },
 });
