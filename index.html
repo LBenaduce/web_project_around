@@ -47,8 +47,10 @@
       </section>
 
       
-      <section class="elements" aria-live="polite"></section>
-    </main>
+    <section class="elements" aria-live="polite">
+  <ul class="elements__list"></ul>
+</section>
+</main>
 
     <footer class="footer page__section">
       <p class="footer__copyright">
@@ -204,17 +206,18 @@
     </div>
 
     
-    <template id="cardTemplate">
-      <article class="elements__card">
-        <img class="elements__image" src="" alt="" />
-        <button class="elements__remove" type="button"></button>
+<template id="card-template">
+  <li class="element">
+    <img class="elements__image" src="" alt="" />
+    <button class="elements__remove" type="button"></button>
 
-        <div class="elements__caption">
-          <p class="elements__text"></p>
-          <button class="elements__like" type="button"></button>
-        </div>
-      </article>
-    </template>
+    <div class="elements__caption">
+      <p class="elements__text"></p>
+      <button class="elements__like" type="button"></button>
+    </div>
+  </li>
+</template>
+
 
     <script type="module" src="./scripts/index.js"></script>
   </body>

@@ -9,21 +9,14 @@ export default class Card {
   ) {
     this._name = data.name;
     this._link = data.link;
-
     this._id = data._id || null;
-
-    
     this._ownerId = data.owner?._id || userId;
-
     this._likes = data.likes || [];
     this._userId = userId;
-
     this._isLiked = this._likes.some(
       (user) => user._id === this._userId
     );
-
     this._templateSelector = templateSelector;
-
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._handleLikeClick = handleLikeClick;
@@ -33,7 +26,7 @@ export default class Card {
     return document
       .querySelector(this._templateSelector)
       .content
-      .querySelector(".elements__card")
+      .querySelector(".element")
       .cloneNode(true);
   }
 
@@ -76,7 +69,6 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-
     this._imageElement = this._element.querySelector(".elements__image");
     this._titleElement = this._element.querySelector(".elements__text");
     this._likeButton = this._element.querySelector(".elements__like");
@@ -86,7 +78,6 @@ export default class Card {
     this._imageElement.alt = this._name;
     this._titleElement.textContent = this._name;
 
-    
     if (this._ownerId !== this._userId && this._deleteButton) {
       this._deleteButton.remove();
       this._deleteButton = null;
