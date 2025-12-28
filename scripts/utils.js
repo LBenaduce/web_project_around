@@ -47,6 +47,7 @@ export const initialCards = [
     name: 'Vale de Yosemite',
     link: 'images/yosemite.png'
   },
+
   {
     name: 'Lago Louise',
     link: 'images/louise.png'
