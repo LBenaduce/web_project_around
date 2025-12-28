@@ -1,13 +1,31 @@
 export default class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl, headers = {} }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
+  }
+
+  _getHeaders() {
+    const token =
+      this._headers.authorization ||
+      localStorage.getItem("jwt") ||
+      localStorage.getItem("token");
+
+    const headers = {
+      "Content-Type": "application/json",
+      ...this._headers,
+    };
+
+    if (token) {
+      headers.authorization = token;
+    }
+
+    return headers;
   }
 
   _request(path, method = "GET", body = null) {
     const options = {
       method,
-      headers: this._headers,
+      headers: this._getHeaders(),
     };
 
     if (body) {
@@ -34,7 +52,7 @@ export default class Api {
     return Promise.all([this.getUserInfo(), this.getInitialCards()]);
   }
 
-  setUserInfo({ name, about }) {
+  updateUserInfo({ name, about }) {
     return this._request("/users/me", "PATCH", { name, about });
   }
 

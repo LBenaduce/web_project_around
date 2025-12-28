@@ -51,6 +51,9 @@ avatarFormValidator.enableValidation();
 
 const api = new Api({
   baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
+  headers: {
+    authorization: "6f52aaa4-1ad3-40e3-9da3-068576075181",
+  },
 });
 
 
@@ -95,21 +98,15 @@ function handleLikeClick(cardInstance) {
 
   request
     .then((updatedCard) => {
-      const isLiked = updatedCard.likes.some(
-        (user) => user._id === currentUserId
-      );
+      const isLiked = updatedCard.likes.some((user) => user._id === currentUserId);
       cardInstance.setLikeState(isLiked);
     })
     .catch(console.log);
 }
 
 function createCard(data) {
-  const isLiked = data.likes.some(
-    (user) => user._id === currentUserId
-  );
-
   const card = new Card(
-    { ...data, isLiked },
+    data,
     currentUserId,
     "#card-template",
     handleCardClick,
@@ -148,63 +145,54 @@ avatarElement.addEventListener("click", () => {
   avatarPopup.open();
 });
 
-const editProfilePopup = new PopupWithForm(
-  popupProfileSelector,
-  (formData) => {
-    editProfilePopup.renderLoading(true);
+const editProfilePopup = new PopupWithForm(popupProfileSelector, (formData) => {
+  editProfilePopup.renderLoading(true);
 
-    api
-      .updateUserInfo(formData)
-      .then((userData) => {
-        userInfo.setUserInfo({
-          name: userData.name,
-          job: userData.about,
-        });
-        editProfilePopup.close();
-      })
-      .catch(console.log)
-      .finally(() => editProfilePopup.renderLoading(false));
-  }
-);
+  api
+    .updateUserInfo({ name: formData.name, about: formData.about })
+    .then((userData) => {
+      userInfo.setUserInfo({
+        name: userData.name,
+        job: userData.about,
+      });
+      editProfilePopup.close();
+    })
+    .catch(console.log)
+    .finally(() => editProfilePopup.renderLoading(false));
+});
 editProfilePopup.setEventListeners();
 
-const addCardPopup = new PopupWithForm(
-  popupAddPicSelector,
-  (formData) => {
-    addCardPopup.renderLoading(true);
+const addCardPopup = new PopupWithForm(popupAddPicSelector, (formData) => {
+  addCardPopup.renderLoading(true);
 
-    api
-      .addCard({
-        name: formData["local-name"],
-        link: formData.link,
-      })
-      .then((cardData) => {
-        cardSection.addItem(createCard(cardData));
-        addCardPopup.close();
-        addPicFormValidator.resetValidation();
-      })
-      .catch(console.log)
-      .finally(() => addCardPopup.renderLoading(false));
-  }
-);
+  api
+    .addCard({
+      name: formData["local-name"],
+      link: formData.link,
+    })
+    .then((cardData) => {
+      cardSection.addItem(createCard(cardData));
+      addCardPopup.close();
+      addPicFormValidator.resetValidation();
+    })
+    .catch(console.log)
+    .finally(() => addCardPopup.renderLoading(false));
+});
 addCardPopup.setEventListeners();
 
-const avatarPopup = new PopupWithForm(
-  popupAvatarSelector,
-  (formData) => {
-    avatarPopup.renderLoading(true);
+const avatarPopup = new PopupWithForm(popupAvatarSelector, (formData) => {
+  avatarPopup.renderLoading(true);
 
-    api
-      .updateAvatar(formData.avatar)
-      .then((userData) => {
-        avatarElement.src = userData.avatar;
-        avatarPopup.close();
-        avatarFormValidator.resetValidation();
-      })
-      .catch(console.log)
-      .finally(() => avatarPopup.renderLoading(false));
-  }
-);
+  api
+    .updateAvatar(formData.avatar)
+    .then((userData) => {
+      avatarElement.src = userData.avatar;
+      avatarPopup.close();
+      avatarFormValidator.resetValidation();
+    })
+    .catch(console.log)
+    .finally(() => avatarPopup.renderLoading(false));
+});
 avatarPopup.setEventListeners();
 
 api
