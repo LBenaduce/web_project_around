@@ -56,7 +56,6 @@ const api = new Api({
   },
 });
 
-
 let currentUserId = null;
 
 const userInfo = new UserInfo({
@@ -119,9 +118,7 @@ function createCard(data) {
 
 const cardSection = new Section(
   {
-    renderer: (item) => {
-      cardSection.addItem(createCard(item));
-    },
+    renderer: (item) => createCard(item),
   },
   elementsSectionSelector
 );
