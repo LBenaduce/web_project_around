@@ -4,66 +4,54 @@ export default class Api {
     this._headers = headers;
   }
 
-  _checkResponse(res) {
-    if (res.ok) return res.json();
-    return Promise.reject(`Error: ${res.status}`);
-  }
-
-  _request(path, options = {}) {
-    return fetch(`${this._baseUrl}${path}`, {
+  _makeRequest(baseUrl, method = "GET", body = null) {
+    const options = {
+      method,
       headers: this._headers,
-      ...options,
-    }).then(this._checkResponse);
-  }
+    };
 
-  getUserInfo() {
-    return this._request("/users/me");
-  }
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
 
-  getInitialCards() {
-    return this._request("/cards/");
-  }
-
-  getAppInfo() {
-    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
-  }
-
-  updateUserInfo({ name, about }) {
-    return this._request("/users/me", {
-      method: "PATCH",
-      body: JSON.stringify({ name, about }),
+    return fetch(baseUrl, options).then((res) => {
+      if (!res.ok) {
+        return Promise.reject(`Erro: ${res.status}`);
+      }
+      return res.json();
     });
   }
 
-  addCard({ name, link }) {
-    return this._request("/cards/", {
-      method: "POST",
-      body: JSON.stringify({ name, link }),
-    });
+  getCards() {
+    return this._makeRequest(`${this._baseUrl}/cards`);
+  }
+
+  createCard(card) {
+    return this._makeRequest(`${this._baseUrl}/cards`, "POST", card);
+  }
+
+  likeCard(cardId) {
+    return this._makeRequest(`${this._baseUrl}/cards/${cardId}/likes`, "PUT");
+  }
+
+  unlikeCard(cardId) {
+    return this._makeRequest(`${this._baseUrl}/cards/${cardId}/likes`, "DELETE");
   }
 
   deleteCard(cardId) {
-    return this._request(`/cards/${cardId}`, {
-      method: "DELETE",
-    });
+    return this._makeRequest(`${this._baseUrl}/cards/${cardId}`, "DELETE");
   }
 
-  addLike(cardId) {
-    return this._request(`/cards/${cardId}/likes`, {
-      method: "PUT",
-    });
+  getUserInfo() {
+    return this._makeRequest(`${this._baseUrl}/users/me`);
   }
 
-  removeLike(cardId) {
-    return this._request(`/cards/${cardId}/likes`, {
-      method: "DELETE",
-    });
+  updateUserInfo({ name, about }) {
+    return this._makeRequest(`${this._baseUrl}/users/me`, "PATCH", { name, about });
   }
 
-  updateAvatar(avatar) {
-    return this._request("/users/me/avatar", {
-      method: "PATCH",
-      body: JSON.stringify({ avatar }),
-    });
+  updateAvatar(avatarUrl) {
+    return this._makeRequest(`${this._baseUrl}/users/me/avatar`, "PATCH", { avatar: avatarUrl });
   }
 }
+export { Api };

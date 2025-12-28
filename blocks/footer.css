@@ -1,21 +1,21 @@
-
-.header {
-  width: 100%;
-  max-width: 880px;
-  margin: 45px auto 0;
-  padding: 0 20px;
-  box-sizing: border-box;
-}
-.header__logo { width: 173px; display: block; }
-
-
 .footer {
-  width: 100%;
   max-width: 880px;
-  margin: 67px auto 60px;
-  padding: 0 20px;
-  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  padding: 35px 0 60px;
+  margin: 0 auto;
+}
+
+.footer__copyright {
+  font-weight: 400;
   font-size: 18px;
-  line-height: 1.2;
+  line-height: 22px;
+  margin: 0;
   color: rgba(84, 84, 84, 1);
+}
+
+@media screen and (max-width: 934px) {
+  .footer {
+    max-width: 836px;
+  }
 }
