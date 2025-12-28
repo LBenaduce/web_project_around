@@ -1,21 +1,16 @@
-class Card {
-  constructor(
-    { name, linkUrl, id, isLiked, ownerId, currentUserId },
-    templateSelector,
-    handleCardClick,
-    onDelete,
-    onLike
-  ) {
-    this._name = name;
-    this._linkUrl = linkUrl;
-    this._id = id;
-    this._isLiked = isLiked;
-    this._ownerId=ownerId;
-    this._currentUserId= currentUserId;
+export default class Card {
+  constructor(data, currentUserId, templateSelector, handleCardClick, handleDeleteClick, handleLikeClick) {
+    this._name = data.name;
+    this._link = data.link;
+    this._id = data._id;
+    this._ownerId = data.owner?._id;
+    this._likes = Array.isArray(data.likes) ? data.likes : [];
+    this._currentUserId = currentUserId;
+
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._onDelete = onDelete;
-    this._onLike = onLike;
+    this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
   }
 
   _getTemplate() {
@@ -23,73 +18,52 @@ class Card {
     return template.content.querySelector(".elements__card").cloneNode(true);
   }
 
-  _updateLikeView() {
-    if (this._isLiked) {
-      this._likeBTN.classList.add("elements__like-on");
+  getId() {
+    return this._id;
+  }
+
+  isLiked() {
+    return this._likes.some((u) => u._id === this._currentUserId);
+  }
+
+  setLikeState(isLiked) {
+    if (isLiked) {
+      this._likeButton.classList.add("elements__like-on");
     } else {
-      this._likeBTN.classList.remove("elements__like-on");
+      this._likeButton.classList.remove("elements__like-on");
     }
   }
 
-  _handleLike(evt) {
-    evt.target.classList.toggle("elements__like-on");
-    this._isLiked = !this._isLiked;
-    if (typeof this._onLike === "function") {
-      this._onLike(this._id, this._isLiked).catch((err) => {
-        evt.target.classList.toggle("elements__like-on");
-        this._isLiked = !this._isLiked;
-        console.error("erro ao curtir/descurtir card:", err);
-      });
-    }
-  }
-
-  _handleDelete() {
+  removeCard() {
     this._element.remove();
     this._element = null;
   }
 
-  _setEventListener() {
-    this._likeBTN.addEventListener("click", (evt) => this._handleLike(evt));
-    this._deleteButton.addEventListener("click", () => {
-      if (typeof this._onDelete === "function") {
-        this._onDelete()
-          .then(() => {
-            this._handleDelete();
-          })
-          .catch((err) => {
-            console.error("erro ao deletar o card", err);
-          });
-      } else {
-        this._handleDelete;
-      }
-    });
-
-    this._image.addEventListener("click", () =>
-      this._handleCardClick(this._name, this._linkUrl)
-    );
+  _setEventListeners() {
+    this._likeButton.addEventListener("click", () => this._handleLikeClick(this));
+    this._deleteButton.addEventListener("click", () => this._handleDeleteClick(this));
+    this._image.addEventListener("click", () => this._handleCardClick(this._name, this._link));
   }
 
   generateCard() {
     this._element = this._getTemplate();
 
-    this._likeBTN = this._element.querySelector(".elements__like");
-    this._deleteButton = this._element.querySelector(".elements__remove");
     this._image = this._element.querySelector(".elements__image");
-    const caption = this._element.querySelector(".elements__text");
+    this._deleteButton = this._element.querySelector(".elements__remove");
+    this._likeButton = this._element.querySelector(".elements__like");
+    this._title = this._element.querySelector(".elements__text");
 
-    this._image.src = this._linkUrl;
+    this._image.src = this._link;
     this._image.alt = this._name;
-    caption.textContent = this._name;
+    this._title.textContent = this._name;
 
-    if(this._ownerId !== this._currentUserId){
+    if (this._ownerId !== this._currentUserId) {
       this._deleteButton.style.display = "none";
     }
 
-    this._updateLikeView();
-    this._setEventListener();
+    this.setLikeState(this.isLiked());
+    this._setEventListeners();
 
     return this._element;
   }
 }
-
-export { Card };

@@ -4,7 +4,7 @@ export default class Api {
     this._headers = headers;
   }
 
-  _makeRequest(baseUrl, method = "GET", body = null) {
+  _request(path, method = "GET", body = null) {
     const options = {
       method,
       headers: this._headers,
@@ -14,44 +14,47 @@ export default class Api {
       options.body = JSON.stringify(body);
     }
 
-    return fetch(baseUrl, options).then((res) => {
+    return fetch(`${this._baseUrl}${path}`, options).then((res) => {
       if (!res.ok) {
-        return Promise.reject(`Erro: ${res.status}`);
+        return Promise.reject(`Error: ${res.status}`);
       }
       return res.json();
     });
   }
 
-  getCards() {
-    return this._makeRequest(`${this._baseUrl}/cards`);
+  getUserInfo() {
+    return this._request("/users/me");
   }
 
-  createCard(card) {
-    return this._makeRequest(`${this._baseUrl}/cards`, "POST", card);
+  getInitialCards() {
+    return this._request("/cards");
   }
 
-  likeCard(cardId) {
-    return this._makeRequest(`${this._baseUrl}/cards/${cardId}/likes`, "PUT");
+  getAppInfo() {
+    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
   }
 
-  unlikeCard(cardId) {
-    return this._makeRequest(`${this._baseUrl}/cards/${cardId}/likes`, "DELETE");
+  setUserInfo({ name, about }) {
+    return this._request("/users/me", "PATCH", { name, about });
+  }
+
+  addCard({ name, link }) {
+    return this._request("/cards", "POST", { name, link });
   }
 
   deleteCard(cardId) {
-    return this._makeRequest(`${this._baseUrl}/cards/${cardId}`, "DELETE");
+    return this._request(`/cards/${cardId}`, "DELETE");
   }
 
-  getUserInfo() {
-    return this._makeRequest(`${this._baseUrl}/users/me`);
+  addLike(cardId) {
+    return this._request(`/cards/${cardId}/likes`, "PUT");
   }
 
-  updateUserInfo({ name, about }) {
-    return this._makeRequest(`${this._baseUrl}/users/me`, "PATCH", { name, about });
+  removeLike(cardId) {
+    return this._request(`/cards/${cardId}/likes`, "DELETE");
   }
 
-  updateAvatar(avatarUrl) {
-    return this._makeRequest(`${this._baseUrl}/users/me/avatar`, "PATCH", { avatar: avatarUrl });
+  updateAvatar(avatar) {
+    return this._request("/users/me/avatar", "PATCH", { avatar });
   }
 }
-export { Api };
