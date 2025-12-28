@@ -7,7 +7,6 @@ import PopupWithConfirmation from "./PopupWithConfirmation.js";
 import UserInfo from "./UserInfo.js";
 import Api from "./Api.js";
 
-
 const elementsSectionSelector = ".elements";
 
 const profileNameElement = document.querySelector(".profile__name");
@@ -17,13 +16,11 @@ const avatarElement = document.querySelector(".profile__avatar");
 const btnEditProfile = document.querySelector(".profile__pen");
 const btnAddPlace = document.querySelector(".profile__plus");
 
-
 const popupProfileSelector = "#popup-profile";
 const popupAddPicSelector = "#popup-addpic";
 const popupImageSelector = "#popup";
 const popupConfirmSelector = "#popup-confirm";
 const popupAvatarSelector = "#popup-avatar";
-
 
 const popupProfile = document.querySelector(popupProfileSelector);
 const popupAddPic = document.querySelector(popupAddPicSelector);
@@ -36,9 +33,7 @@ const formAvatar = popupAvatar.querySelector(".popup__avatar-form");
 const profileInputName = popupProfile.querySelector("#name");
 const profileInputAbout = popupProfile.querySelector("#about");
 
-
 const validationConfig = {
-  formSelector: ".popup__profile, .popup__addpic, .popup__avatar-form",
   inputSelector: ".popup__name, .popup__about, .popup__avatar",
   submitButtonSelector: ".popup__save",
   inactiveButtonClass: "popup__save_disabled",
@@ -54,7 +49,6 @@ profileFormValidator.enableValidation();
 addPicFormValidator.enableValidation();
 avatarFormValidator.enableValidation();
 
-
 const api = new Api({
   baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
   headers: {
@@ -63,7 +57,6 @@ const api = new Api({
   },
 });
 
-
 let currentUserId = null;
 
 const userInfo = new UserInfo({
@@ -71,69 +64,11 @@ const userInfo = new UserInfo({
   jobSelector: ".profile__description",
 });
 
-
 const imagePopup = new PopupWithImage(popupImageSelector);
 imagePopup.setEventListeners();
 
 const confirmPopup = new PopupWithConfirmation(popupConfirmSelector);
 confirmPopup.setEventListeners();
-
-const editProfilePopup = new PopupWithForm(popupProfileSelector, (formData) => {
-  editProfilePopup.renderLoading(true);
-
-  api
-    .updateUserInfo({ name: formData.name, about: formData.about })
-    .then((userData) => {
-      userInfo.setUserInfo({
-        name: userData.name,
-        job: userData.about,
-      });
-
-      profileNameElement.textContent = userData.name;
-      profileDescElement.textContent = userData.about;
-
-      editProfilePopup.close();
-    })
-    .catch(console.log)
-    .finally(() => editProfilePopup.renderLoading(false));
-});
-editProfilePopup.setEventListeners();
-
-const addCardPopup = new PopupWithForm(popupAddPicSelector, (formData) => {
-  addCardPopup.renderLoading(true);
-
-  api
-    .addCard({
-      name: formData["local-name"],
-      link: formData.link,
-    })
-    .then((cardData) => {
-      const cardElement = createCard(cardData);
-      cardSection.addItem(cardElement);
-
-      addCardPopup.close();
-      addPicFormValidator.resetValidation();
-    })
-    .catch(console.log)
-    .finally(() => addCardPopup.renderLoading(false));
-});
-addCardPopup.setEventListeners();
-
-const avatarPopup = new PopupWithForm(popupAvatarSelector, (formData) => {
-  avatarPopup.renderLoading(true);
-
-  api
-    .updateAvatar(formData.avatar)
-    .then((userData) => {
-      avatarElement.src = userData.avatar;
-      avatarPopup.close();
-      avatarFormValidator.resetValidation();
-    })
-    .catch(console.log)
-    .finally(() => avatarPopup.renderLoading(false));
-});
-avatarPopup.setEventListeners();
-
 
 function handleCardClick(name, link) {
   imagePopup.open(name, link);
@@ -163,16 +98,23 @@ function handleLikeClick(cardInstance) {
 
   request
     .then((updatedCard) => {
-      cardInstance.updateLikes(updatedCard.likes);
+      const isLiked = updatedCard.likes.some(
+        (user) => user._id === currentUserId
+      );
+      cardInstance.setLikeState(isLiked);
     })
     .catch(console.log);
 }
 
 function createCard(data) {
+  const isLiked = data.likes.some(
+    (user) => user._id === currentUserId
+  );
+
   const card = new Card(
-    data,
+    { ...data, isLiked },
     currentUserId,
-    "#cardTemplate", 
+    "#cardTemplate",
     handleCardClick,
     handleDeleteClick,
     handleLikeClick
@@ -184,13 +126,11 @@ function createCard(data) {
 const cardSection = new Section(
   {
     renderer: (item) => {
-      const cardElement = createCard(item);
-      cardSection.addItem(cardElement);
+      cardSection.addItem(createCard(item));
     },
   },
   elementsSectionSelector
 );
-
 
 btnEditProfile.addEventListener("click", () => {
   profileFormValidator.resetValidation();
@@ -211,8 +151,66 @@ avatarElement.addEventListener("click", () => {
   avatarPopup.open();
 });
 
+const editProfilePopup = new PopupWithForm(popupProfileSelector, (formData) => {
+  editProfilePopup.renderLoading(true);
+
+  api
+    .updateUserInfo(formData)
+    .then((userData) => {
+      userInfo.setUserInfo({
+        name: userData.name,
+        job: userData.about,
+      });
+      editProfilePopup.close();
+    })
+    .catch(console.log)
+    .finally(() => editProfilePopup.renderLoading(false));
+});
+editProfilePopup.setEventListeners();
+
+const addCardPopup = new PopupWithForm(popupAddPicSelector, (formData) => {
+  addCardPopup.renderLoading(true);
+
+  api
+    .addCard({
+      name: formData["local-name"],
+      link: formData.link,
+    })
+    .then((cardData) => {
+      cardSection.addItem(createCard(cardData));
+      addCardPopup.close();
+      addPicFormValidator.resetValidation();
+    })
+    .catch(console.log)
+    .finally(() => addCardPopup.renderLoading(false));
+});
+addCardPopup.setEventListeners();
+
+const avatarPopup = new PopupWithForm(popupAvatarSelector, (formData) => {
+  avatarPopup.renderLoading(true);
+
+  api
+    .updateAvatar(formData.avatar)
+    .then((userData) => {
+      avatarElement.src = userData.avatar;
+      avatarPopup.close();
+      avatarFormValidator.resetValidation();
+    })
+    .catch(console.log)
+    .finally(() => avatarPopup.renderLoading(false));
+});
+avatarPopup.setEventListeners();
 
 api
   .getAppInfo()
   .then(([userData, initialCards]) => {
-    cur
+    currentUserId = userData._id;
+    userInfo.setUserInfo({
+      name: userData.name,
+      job: userData.about,
+    });
+    avatarElement.src = userData.avatar;
+    cardSection.setItems(initialCards);
+    cardSection.renderItems();
+  })
+  .catch(console.log);
