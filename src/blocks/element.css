@@ -1,13 +1,13 @@
-.element__icon {
+// element__icon {
   cursor: pointer;
   transition: opacity 0.3s;
 }
 
-.element__icon:hover {
+// element__icon:hover {
   filter: brightness(0);
   opacity: 0.5;
 }
 
-.element__dark-icon {
+// element__dark-icon {
   display: none;
 }
