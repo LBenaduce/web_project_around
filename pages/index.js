@@ -1,12 +1,12 @@
-import { UserInfo } from "../components/UserInfo.js";
-import { PopupWithConfirmation } from "../components/PopupwithConfirmation.js";
-import { PopupWithForm } from "../components/PopupWithForm.js";
-import { PopupWithImage } from "../components/PopupWithImage.js";
-import { Section } from "../components/Section.js";
-import { Card } from "../components/Card.js";
-import { Api } from "../components/Api.js";
-import { FormValidator, validation } from "../components/formValidator.js";
-import { Utils } from "../components/utils.js";
+import { UserInfo } from "../scripts/UserInfo.js";
+import { PopupWithConfirmation } from "../scripts/PopupwithConfirmation.js";
+import { PopupWithForm } from "../scripts/PopupWithForm.js";
+import { PopupWithImage } from "../scripts/PopupWithImage.js";
+import { Section } from "../scripts/Section.js";
+import { Card } from "../scripts/Card.js";
+import { Api } from "../scripts/Api.js";
+import { FormValidator, validation } from "../scripts/formValidator.js";
+import { Utils } from "../scripts/utils.js";
 
 const utils = new Utils({
   form: document.querySelector(".popup__profile"),
