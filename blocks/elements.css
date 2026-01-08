@@ -2,10 +2,17 @@
   max-width: 880px;
   width: 100%;
   margin: 0 auto;
+}
+
+.elements__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
+
 
 .elements__image {
   height: 282px;
@@ -76,14 +83,14 @@ right: 15px;
 
 
 @media screen and (max-width: 934px) {
-  .elements {
+  .elements__list {
     grid-template-columns: repeat(2, 282px);
     justify-content: center;
   }
 }
 
 @media screen and (max-width: 632px) {
-  .elements {
+  .elements__list {
     grid-template-columns: repeat(1, 282px);
     justify-content: center;
   }
