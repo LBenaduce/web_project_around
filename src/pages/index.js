@@ -41,6 +41,7 @@ const fallbackCards = [
 const profileNameElement = document.querySelector(".profile__name");
 const profileDescElement = document.querySelector(".profile__description");
 const avatarElement = document.querySelector(".profile__avatar");
+const avatarContainer = document.querySelector(".profile__avatar-container");
 
 const btnEditProfile = document.querySelector(".profile__pen");
 const btnAddPlace = document.querySelector(".profile__plus");
@@ -227,7 +228,7 @@ btnAddPlace.addEventListener("click", () => {
   addCardPopup.open();
 });
 
-avatarElement.addEventListener("click", () => {
+(avatarContainer || avatarElement).addEventListener("click", () => {
   formAvatar.reset();
   avatarFormValidator.resetValidation();
   avatarPopup.open();

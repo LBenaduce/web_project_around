@@ -60,14 +60,18 @@
   background-color: transparent;
   padding: 0;
   cursor: pointer;
-  background-image: url(../images/like.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  background: url(../images/like.svg) center no-repeat;
 }
 
-.elements__like-on {
-  background-image: url(../images/liked.svg);
+.elements__like.elements__like-on {
+  width: 21px;
+  height: 19px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+  background: url(../images/liked.svg) center no-repeat;
+
 }
 
 .elements__like:hover {
