@@ -38,9 +38,6 @@ const fallbackCards = [
   },
 ];
 
-
-
-
 const profileNameElement = document.querySelector(".profile__name");
 const profileDescElement = document.querySelector(".profile__description");
 const avatarElement = document.querySelector(".profile__avatar");
@@ -65,8 +62,6 @@ const formAvatar = popupAvatar.querySelector(".popup__avatar-form");
 const profileInputName = popupProfile.querySelector("#name");
 const profileInputAbout = popupProfile.querySelector("#about");
 
-
-
 const validationConfig = {
   inputSelector: ".popup__name, .popup__about, .popup__avatar",
   submitButtonSelector: ".popup__save",
@@ -85,8 +80,6 @@ avatarFormValidator.enableValidation();
 
 console.log("🟢 Validators OK");
 
-
-
 const api = new Api({
   baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
   headers: {
@@ -96,16 +89,12 @@ const api = new Api({
 
 let currentUserId = null;
 
-
-
 const userInfo = new UserInfo({
   nameSelector: ".profile__name",
   jobSelector: ".profile__description",
 });
 
 console.log("🟢 UserInfo criado");
-
-
 
 const imagePopup = new PopupWithImage(popupImageSelector);
 imagePopup.setEventListeners();
@@ -114,7 +103,6 @@ const confirmPopup = new PopupWithConfirmation(popupConfirmSelector);
 confirmPopup.setEventListeners();
 
 console.log("🟢 Popups OK");
-
 
 function handleCardClick(name, link) {
   imagePopup.open(name, link);
@@ -135,25 +123,22 @@ function handleDeleteClick(cardInstance) {
 }
 
 function handleLikeClick(cardInstance) {
-  const request = cardInstance.isLiked()
-    ? api.removeLike(cardInstance.getId())
-    : api.addLike(cardInstance.getId());
+  const shouldLike = !cardInstance.isLiked();
+
+  const request = shouldLike
+    ? api.addLike(cardInstance.getId())
+    : api.removeLike(cardInstance.getId());
 
   request
     .then((updatedCard) => {
-      const isLiked = updatedCard.likes.some((user) =>
-        typeof user === "string"
-          ? user === currentUserId
-          : user._id === currentUserId
-      );
-      cardInstance.setLikeState(isLiked);
+      cardInstance.setLikes(updatedCard.likes);
     })
     .catch((err) => console.error("❌ erro like:", err));
 }
 
-
 function createCard(data) {
   console.log("🟢 criando card:", data.name);
+
   const card = new Card(
     data,
     currentUserId,
@@ -162,6 +147,7 @@ function createCard(data) {
     handleDeleteClick,
     handleLikeClick
   );
+
   return card.generateCard();
 }
 
@@ -173,7 +159,6 @@ const cardSection = new Section(
 );
 
 console.log("🟢 Section criada");
-
 
 const editProfilePopup = new PopupWithForm(popupProfileSelector, (formData) => {
   editProfilePopup.renderLoading(true);
@@ -225,7 +210,6 @@ const avatarPopup = new PopupWithForm(popupAvatarSelector, (formData) => {
 });
 avatarPopup.setEventListeners();
 
-
 btnEditProfile.addEventListener("click", () => {
   profileFormValidator.resetValidation();
   profileInputName.value = profileNameElement.textContent;
@@ -245,7 +229,6 @@ avatarElement.addEventListener("click", () => {
   avatarPopup.open();
 });
 
-
 console.log("🟡 chamando getAppInfo");
 
 api
@@ -263,9 +246,10 @@ api
 
     avatarElement.src = userData.avatar;
 
-    const cardsToRender = Array.isArray(initialCards) && initialCards.length > 1
-      ? initialCards
-      : fallbackCards;
+    const cardsToRender =
+      Array.isArray(initialCards) && initialCards.length > 1
+        ? initialCards
+        : fallbackCards;
 
     cardSection.setItems(cardsToRender);
     cardSection.renderItems();
@@ -277,7 +261,7 @@ api
   })
   .catch((err) => console.error("❌ ERRO getAppInfo:", err));
 
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 });

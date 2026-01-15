@@ -13,13 +13,12 @@
   gap: 16px;
 }
 
-
 .elements__image {
   height: 282px;
   width: 100%;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  object-fit:cover ;
+  object-fit: cover;
 }
 
 .elements__card {
@@ -30,12 +29,14 @@
   box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
   position: relative;
 }
+
 .elements__caption {
   display: flex;
   justify-content: space-between;
   text-align: center;
   margin: 25px 15px 31px 21px;
 }
+
 .elements__text {
   min-height: 27px;
   max-width: 223px;
@@ -51,36 +52,37 @@
 .elements__like:hover {
   opacity: 0.6;
 }
+
 .elements__like {
   width: 21px;
   height: 19px;
-  background: url(../images/Like.svg) no-repeat;
+  background: url(../images/like.svg) no-repeat;
   border: none;
   background-color: transparent;
   padding: 0;
   cursor: pointer;
 }
-.elements__like-on{
+
+.elements__like-on {
   background: url(../images/liked.svg) center no-repeat;
 }
 
-.elements__remove:hover{
+.elements__remove:hover {
   opacity: 0.6;
 }
-.elements__remove{background:url(../images/Trash.svg)no-repeat;
-border: none;
-background-color: transparent;
-padding:0;
-cursor:pointer;
-width: 18px;
-height: 19px;
-position: absolute;
-top: 18px;
-right: 15px;
 
+.elements__remove {
+  background: url(../images/trash.svg) no-repeat;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  top: 18px;
+  right: 15px;
 }
-
-
 
 @media screen and (max-width: 934px) {
   .elements__list {
