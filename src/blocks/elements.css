@@ -60,11 +60,19 @@
   background-color: transparent;
   padding: 0;
   cursor: pointer;
-  background: url(../images/like.svg) center/contain no-repeat;
+  background: url(../images/like.svg) center no-repeat;
+  background-size: contain;
 }
 
 .elements__like-on {
-  background: url(../images/like-active.svg) center/contain no-repeat;
+  width: 21px;
+  height: 19px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+  background: url(../images/like-active.svg) center no-repeat;
+
 }
 
 .elements__like:hover {
@@ -100,4 +108,8 @@
     grid-template-columns: repeat(1, 282px);
     justify-content: center;
   }
+}
+.elements__like-on {
+  background: url(../images/like-active.svg) center no-repeat;
+  background-size: contain;
 }
