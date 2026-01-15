@@ -60,7 +60,7 @@
   background-color: transparent;
   padding: 0;
   cursor: pointer;
-  background: url(../images/like.png) center no-repeat;
+  background: url(../images/like.svg) center no-repeat;
 }
 
 .elements__like.elements__like-on {
