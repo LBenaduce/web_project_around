@@ -1,0 +1,13 @@
+.header {
+  max-width: 880px;
+  width: 100%;
+  border-width: 1px;
+  margin: 0 auto 40px auto;
+  border-bottom: 1px solid rgba(84, 84, 84, 1);
+  padding-top: 45px;
+}
+
+
+.header__vetor {padding-bottom:41px;
+
+}

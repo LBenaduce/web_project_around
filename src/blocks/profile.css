@@ -1,0 +1,136 @@
+.profile {
+  max-width: 880px;
+  width: 100%;
+  color: #fff;
+  margin: 0 auto 50px auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.profile__avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile__avatar-container:hover .profile__avatar-overlay {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.profile__avatar-container {
+  cursor: pointer;
+  position: relative;
+}
+
+.profile__avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../images/pen.svg") center center no-repeat;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-size: 26px 26px;
+  opacity: 0;
+}
+
+.profile__text {
+  margin-left: 30px;
+  padding-top: 22px;
+  display: grid;
+  grid-template-areas:
+    "name button"
+    "description description";
+  gap: 16px 18px;
+}
+.profile__name {
+  max-width: 373px;
+  width: 100%;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+  margin: 0;
+  grid-area: name;
+  overflow:hidden
+
+}
+
+.profile__description {
+  max-width: 415px;
+  width: 100%;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  grid-area: description;
+  margin: 0;
+  overflow: hidden;
+}
+
+.profile__pen {
+  width: 24px;
+  height: 24px;
+  background: transparent url(../images/pen.svg) center no-repeat;
+  border: 1px solid rgba(255, 255, 255, 1);
+  margin: 0;
+  padding: 0;
+  grid-area: button;
+  background-size: 10px 10px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.profile__pen:hover {
+  opacity: 0.6;
+}
+
+.profile__plus {
+  margin-left: auto;
+  background: transparent url(../images/button_plus.svg) center no-repeat;
+  background-size: 22px;
+  border: 2px solid rgba(255, 255, 255, 1);
+  width: 150px;
+  height: 50px;
+  padding: 14px 64px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.profile__plus:hover {
+  opacity: 0.6;
+}
+@media screen and (max-width: 775px) {
+  .profile__name {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .profile {
+    flex-direction: column;
+  }
+  .profile__text {
+    margin: 0;
+  }
+  .profile__name {
+    max-width: 196px;
+    width: 100%;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .profile__description {
+    max-width: 282px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .profile__pen {
+    width: 18px;
+    height: 18px;
+  }
+  .profile__plus {
+    width: 282px;
+    margin: 0;
+  }
+}

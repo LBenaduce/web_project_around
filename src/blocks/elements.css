@@ -1,0 +1,97 @@
+.elements {
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.elements__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+
+.elements__image {
+  height: 282px;
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit:cover ;
+}
+
+.elements__card {
+  max-width: 282px;
+  height: 361px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+.elements__caption {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: 25px 15px 31px 21px;
+}
+.elements__text {
+  min-height: 27px;
+  max-width: 223px;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 100%;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.elements__like:hover {
+  opacity: 0.6;
+}
+.elements__like {
+  width: 21px;
+  height: 19px;
+  background: url(../images/Like.svg) no-repeat;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.elements__like-on{
+  background: url(../images/liked.svg) center no-repeat;
+}
+
+.elements__remove:hover{
+  opacity: 0.6;
+}
+.elements__remove{background:url(../images/Trash.svg)no-repeat;
+border: none;
+background-color: transparent;
+padding:0;
+cursor:pointer;
+width: 18px;
+height: 19px;
+position: absolute;
+top: 18px;
+right: 15px;
+
+}
+
+
+
+@media screen and (max-width: 934px) {
+  .elements__list {
+    grid-template-columns: repeat(2, 282px);
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 632px) {
+  .elements__list {
+    grid-template-columns: repeat(1, 282px);
+    justify-content: center;
+  }
+}
