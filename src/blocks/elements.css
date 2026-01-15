@@ -60,20 +60,22 @@
   background-color: transparent;
   padding: 0;
   cursor: pointer;
-  background: url(../images/like.svg) center no-repeat;
-}
-
-.elements__like:hover {
-  opacity: 0.6;
+  background: url(../images/like.png) center no-repeat;
 }
 
 .elements__like.elements__like-on {
   background: url(../images/liked.svg) center no-repeat;
 }
 
+.elements__like:hover {
+  opacity: 0.6;
+}
+
+
+
 
 .elements__remove {
-  background: url(../imagess/trash.svg) center no-repeat;
+  background: url(../images/trash.svg) center no-repeat;
   border: none;
   background-color: transparent;
   padding: 0;
