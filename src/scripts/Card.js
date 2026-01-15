@@ -44,6 +44,7 @@ export default class Card {
     this._likes = Array.isArray(likes) ? likes : [];
 
     const liked = this.isLiked();
+
     this._likeButton.classList.toggle("elements__like-on", liked);
 
     if (this._likeCount) {

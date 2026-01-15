@@ -56,19 +56,21 @@
 .elements__like {
   width: 21px;
   height: 19px;
-  background: url(../images/like.png) no-repeat;
   border: none;
   background-color: transparent;
   padding: 0;
   cursor: pointer;
+  background: url(../images/like.svg) center no-repeat;
 }
 
-.elements__like-on {
+.elements__like:hover {
+  opacity: 0.6;
+}
+
+.elements__like.elements__like-on {
   background: url(../images/liked.svg) center no-repeat;
 }
 
-.elements__remove:hover {
-  opacity: 0.6;
 }
 
 .elements__remove {
