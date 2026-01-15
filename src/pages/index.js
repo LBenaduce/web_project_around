@@ -123,15 +123,19 @@ function handleDeleteClick(cardInstance) {
 }
 
 function handleLikeClick(cardInstance) {
-  const shouldLike = !cardInstance.isLiked();
-
-  const request = shouldLike
-    ? api.addLike(cardInstance.getId())
-    : api.removeLike(cardInstance.getId());
+  const request = cardInstance.isLiked()
+    ? api.removeLike(cardInstance.getId())
+    : api.addLike(cardInstance.getId());
 
   request
     .then((updatedCard) => {
-      cardInstance.setLikes(updatedCard.likes);
+      const likes =
+        updatedCard?.likes ??
+        updatedCard?.data?.likes ??
+        updatedCard?.card?.likes ??
+        [];
+
+      cardInstance.setLikes(likes);
     })
     .catch((err) => console.error("❌ erro like:", err));
 }
