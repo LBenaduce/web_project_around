@@ -71,9 +71,6 @@
   opacity: 0.6;
 }
 
-
-
-
 .elements__remove {
   background: url(../images/trash.svg) center no-repeat;
   border: none;
@@ -90,7 +87,6 @@
 .elements__remove:hover {
   opacity: 0.6;
 }
-
 
 @media screen and (max-width: 934px) {
   .elements__list {
