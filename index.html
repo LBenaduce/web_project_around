@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Lugares ao redor do USA" />
+    <meta name="Author" content="Luigi Benaduce" />
+    <meta name="Keywords" content="redes sociais,U.S.A,tripleten,Paisagens" />
+    <title>Around Us</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
+  <body class="page">
+    <header class="header page__section">
+      <img
+        class="header__vetor"
+        src="./images/header_around.svg"
+        alt="'Around the Us' escrito em branco"
+      />
+    </header>
+
+    <main class="main page__section">
+      <section class="profile">
+        <div class="profile__avatar-container">
+          <img
+            class="profile__avatar"
+            src="./images/avatar.png"
+            alt="Jacques Cousteau, foto de perfil"
+          />
+          <div class="profile__avatar-overlay"></div>
+        </div>
+
+        <div class="profile__text">
+          <h1 class="profile__name">Jacques Cousteau</h1>
+          <button
+            class="profile__pen"
+            type="button"
+            aria-label="edit profile"
+          ></button>
+          <h2 class="profile__description">Explorador</h2>
+        </div>
+
+        <button
+          class="profile__plus"
+          type="button"
+          aria-label="edit card"
+        ></button>
+      </section>
+
+      <section class="elements">
+        <ul class="elements__list"></ul>
+      </section>
+    </main>
+
+<footer class="footer page__section">
+  <p class="footer__copyright">
+    © Luiz Benaduce – <span id="year"></span> - Around The U.S.
+  </p>
+</footer>
+
+
+    <div class="popup popup-hidden" id="popup-profile">
+      <div class="popup__conteiner">
+        <button
+          class="popup__close"
+          type="button"
+          aria-label="close form"
+        ></button>
+        <h2 class="popup__text">Editar perfil</h2>
+        <form class="popup__profile" novalidate>
+          <label for="name"></label>
+          <input
+            class="popup__name"
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Nome"
+            value="Jacques Cousteau"
+            minlength="2"
+            maxlength="40"
+            required
+          />
+          <span id="name-error" class="popup__error"></span>
+
+          <label for="about"></label>
+          <input
+            class="popup__about"
+            type="text"
+            id="about"
+            name="about"
+            placeholder="Sobre mim"
+            value="Explorador"
+            minlength="2"
+            maxlength="200"
+            required
+          />
+          <span id="about-error" class="popup__error"></span>
+
+          <button class="popup__save popup__button_disabled" type="submit">
+            Salvar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup-hidden" id="popup-addpic">
+      <div class="popup__conteiner">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__text">Novo Local</h2>
+
+        <form class="popup__addpic" novalidate>
+          <input
+            class="popup__name"
+            id="local-name"
+            type="text"
+            placeholder="Título"
+            minlength="2"
+            maxlength="30"
+            name="local-name"
+            required
+          />
+          <span id="local-name-error" class="popup__error"></span>
+
+          <input
+            class="popup__about"
+            id="link"
+            type="url"
+            placeholder="Link de Imagem"
+            name="link"
+            required
+          />
+          <span id="link-error" class="popup__error"></span>
+
+          <button class="popup__save popup__button_disabled" type="submit">
+            Criar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup-hidden" id="popup">
+      <div class="popup__conteiner-zoom">
+        <button class="popup__close-zoom popup__close" type="button"></button>
+        <img id="popupimg" class="popup__zoom" src="" alt="" />
+        <p class="popup__caption" id="popupCaption"></p>
+      </div>
+    </div>
+
+    <div class="popup popup-hidden" id="popup-confirm">
+      <div class="popup__conteiner popup__confirm">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__text popup__text-confirm">Tem Certeza?</h2>
+        <button class="popup__save-confirm" type="button">Sim</button>
+      </div>
+    </div>
+
+    <div class="popup popup-hidden" id="popup-avatar">
+      <div class="popup__conteiner">
+        <button class="popup__close" type="button" aria-label="close form"></button>
+        <h2 class="popup__text">Alterar a Foto de Perfil</h2>
+
+        <form class="popup__avatar-form" novalidate>
+          <input
+            class="popup__avatar"
+            type="url"
+            id="avatar-link"
+            name="avatar"
+            placeholder="Link para foto de perfil"
+            required
+          />
+          <span id="avatar-link-error" class="popup__error"></span>
+
+          <button class="popup__save popup__button_disabled" type="submit">
+            Salvar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <template id="card-template">
+      <article class="elements__card">
+        <img class="elements__image" src="" alt="" />
+        <button
+          class="elements__remove"
+          type="button"
+          aria-label="trash"
+        ></button>
+        <div class="elements__caption">
+          <p class="elements__text"></p>
+          <button class="elements__like" type="button" aria-label="like"></button>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="./pages/index.js"></script>
+  </body>
+</html>
