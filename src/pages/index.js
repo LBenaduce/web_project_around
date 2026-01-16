@@ -41,7 +41,6 @@ const fallbackCards = [
 const profileNameElement = document.querySelector(".profile__name");
 const profileDescElement = document.querySelector(".profile__description");
 const avatarElement = document.querySelector(".profile__avatar");
-const avatarContainer = document.querySelector(".profile__avatar-container");
 
 const btnEditProfile = document.querySelector(".profile__pen");
 const btnAddPlace = document.querySelector(".profile__plus");
@@ -130,16 +129,26 @@ function handleLikeClick(cardInstance) {
 
   request
     .then((updatedCard) => {
-      const likes =
-        updatedCard?.likes ??
-        updatedCard?.data?.likes ??
-        updatedCard?.card?.likes ??
-        [];
+      const hasLikesArray = Array.isArray(updatedCard?.likes);
 
-      cardInstance.setLikes(likes);
+      if (hasLikesArray) {
+        cardInstance.setLikes(updatedCard.likes);
+        return;
+      }
+
+      if (typeof updatedCard?.isLiked === "boolean") {
+        cardInstance.setLikeState(updatedCard.isLiked);
+        if (typeof updatedCard?.likesCount === "number") {
+          cardInstance.setLikeCount(updatedCard.likesCount);
+        }
+        return;
+      }
+
+      cardInstance.setLikeState(!cardInstance.isLiked());
     })
     .catch((err) => console.error("❌ erro like:", err));
 }
+
 
 function createCard(data) {
   console.log("🟢 criando card:", data.name);
@@ -228,7 +237,9 @@ btnAddPlace.addEventListener("click", () => {
   addCardPopup.open();
 });
 
-(avatarContainer || avatarElement).addEventListener("click", () => {
+const avatarContainer = document.querySelector(".profile__avatar-container");
+
+avatarContainer.addEventListener("click", () => {
   formAvatar.reset();
   avatarFormValidator.resetValidation();
   avatarPopup.open();
