@@ -40,20 +40,12 @@ export default class Card {
     );
   }
 
-setLikeState(isLiked) {
-  this._likeButton.classList.toggle("elements__like-on", isLiked);
-}
-
-setLikeCount(count) {
-  if (this._likeCount) this._likeCount.textContent = count;
-}
-
-setLikes(likes) {
-  this._likes = Array.isArray(likes) ? likes : [];
-  const liked = this.isLiked();
-  this._likeButton.classList.toggle("elements__like-on", liked);
-  if (this._likeCount) this._likeCount.textContent = this._likes.length;
-}
+  setLikes(likes) {
+    this._likes = Array.isArray(likes) ? likes : [];
+    const liked = this.isLiked();
+    this._likeButton.classList.toggle("elements__like-on", liked);
+    if (this._likeCount) this._likeCount.textContent = this._likes.length;
+  }
 
   removeCard() {
     this._element.remove();
@@ -97,4 +89,3 @@ setLikes(likes) {
     return this._element;
   }
 }
-
