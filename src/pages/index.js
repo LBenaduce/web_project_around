@@ -8,35 +8,9 @@ import PopupWithForm from "../scripts/PopupWithForm.js";
 import PopupWithConfirmation from "../scripts/PopupWithConfirmation.js";
 import UserInfo from "../scripts/UserInfo.js";
 import Api from "../scripts/Api.js";
+import { initialCards } from "../utils/initialCards.js";
 
 const elementsSectionSelector = ".elements__list";
-
-const fallbackCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
-  },
-];
 
 const profileNameElement = document.querySelector(".profile__name");
 const profileDescElement = document.querySelector(".profile__description");
@@ -244,10 +218,7 @@ console.log("🟡 chamando getAppInfo");
 
 api
   .getAppInfo()
-  .then(([userData, initialCards]) => {
-    console.log("🟢 userData:", userData);
-    console.log("🟢 initialCards:", initialCards);
-
+  .then(([userData, cardsFromApi]) => {
     currentUserId = userData._id;
 
     userInfo.setUserInfo({
@@ -258,19 +229,19 @@ api
     avatarElement.src = userData.avatar;
 
     const cardsToRender =
-      Array.isArray(initialCards) && initialCards.length > 1
-        ? initialCards
-        : fallbackCards;
+      Array.isArray(cardsFromApi) && cardsFromApi.length > 0
+        ? cardsFromApi
+        : initialCards;
 
     cardSection.setItems(cardsToRender);
     cardSection.renderItems();
-
-    console.log(
-      "🟢 cards no DOM:",
-      document.querySelectorAll(".elements__card").length
-    );
   })
-  .catch((err) => console.error("❌ ERRO getAppInfo:", err));
+  .catch((err) => {
+    console.error("❌ ERRO getAppInfo:", err);
+
+    cardSection.setItems(initialCards);
+    cardSection.renderItems();
+  });
 
 document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.getElementById("year");
