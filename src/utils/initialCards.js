@@ -11,4 +11,16 @@ export const initialCards = [
     name: "Zion National Park",
     link: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80",
   },
+  {
+    name: "Bryce Canyon",
+    link: "https://images.unsplash.com/photo-1500043357865-c6b8827edf7e?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    name: "Yellowstone National Park",
+    link: "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    name: "Arches National Park",
+    link: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80",
+  },
 ];

@@ -218,7 +218,7 @@ console.log("🟡 chamando getAppInfo");
 
 api
   .getAppInfo()
-  .then(([userData, cardsFromApi]) => {
+  .then(async ([userData, cardsFromApi]) => {
     currentUserId = userData._id;
 
     userInfo.setUserInfo({
@@ -228,12 +228,29 @@ api
 
     avatarElement.src = userData.avatar;
 
-    const cardsToRender =
-      Array.isArray(cardsFromApi) && cardsFromApi.length > 0
-        ? cardsFromApi
-        : initialCards;
+    const apiCards = Array.isArray(cardsFromApi) ? cardsFromApi : [];
 
-    cardSection.setItems(cardsToRender);
+    const norm = (v) => String(v || "").trim().toLowerCase();
+
+    const existingKeys = new Set(
+      apiCards.map((c) => `${norm(c.name)}|${norm(c.link)}`)
+    );
+
+    const missing = (initialCards || []).filter(
+      (c) => !existingKeys.has(`${norm(c.name)}|${norm(c.link)}`)
+    );
+
+    if (apiCards.length < 6 && missing.length > 0) {
+      await Promise.allSettled(missing.map((c) => api.addCard(c)));
+    }
+
+    const refreshedCards = await api.getInitialCards();
+
+    cardSection.setItems(
+      Array.isArray(refreshedCards) && refreshedCards.length > 0
+        ? refreshedCards
+        : initialCards
+    );
     cardSection.renderItems();
   })
   .catch((err) => {
